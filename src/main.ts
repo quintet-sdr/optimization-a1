@@ -38,6 +38,7 @@ export function maximize(coeffs: number[], constraints: Constraint[]): number {
   }
 
   console.log(table);
+  console.log(table);
 
   return 42;
 }
