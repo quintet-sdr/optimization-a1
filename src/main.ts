@@ -52,7 +52,13 @@ export function maximize(coeffs: number[], constraints: Constraint[]): number {
 }
 
 function arrayOf<T>(n: number, item: () => T): T[] {
-  return new Array(n).fill(item());
+  const a: T[] = new Array(n);
+
+  for (let i = 0; i < n; i += 1) {
+    a[i] = item();
+  }
+
+  return a;
 }
 
 function fnOfXs(n: number): string {
