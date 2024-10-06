@@ -27,7 +27,7 @@ export function maximize(coeffs: number[], constraints: Constraint[]): number {
     arrayOf(coeffs.length + constraints.length + 2, () => 0),
   );
 
-  prettyPrint(table);
+  prettyPrintWith(table, rowNames, colNames);
   console.log();
 
   // Z-row
@@ -48,7 +48,7 @@ export function maximize(coeffs: number[], constraints: Constraint[]): number {
     table[i + 1][coeffs.length + constraints.length] = constraints[i].rhs;
   }
 
-  prettyPrint(table);
+  prettyPrintWith(table, rowNames, colNames);
 
   return 42;
 }
@@ -76,7 +76,16 @@ function coeffsToFn(coeffs: number[]): string {
   return coeffs.map((it, i) => `${it}*x[${i + 1}]`).join(" + ");
 }
 
-// function prettyPrintWith();
+function prettyPrintWith(
+  tableau: number[][],
+  rowNames: string[],
+  colNames: string[],
+): void {
+  prettyPrint([
+    ["Basic", ...colNames],
+    ...tableau.map((row, i) => [rowNames[i], ...row]),
+  ]);
+}
 
 function prettyPrint(tableau: (number | string)[][]) {
   let colMaxes = [];
