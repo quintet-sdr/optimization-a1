@@ -27,25 +27,28 @@ export function maximize(coeffs: number[], constraints: Constraint[]): number {
     arrayOf(coeffs.length + constraints.length + 2, () => 0),
   );
 
-  console.log(table);
+  prettyPrint(table);
+  console.log();
 
   // Z-row
   for (let i = 0; i < coeffs.length; i++) {
     table[0][i] = -1 * coeffs[i];
   }
-  
+
   for (let i = 0; i < constraints.length; i += 1) {
-    //xes
+    // Xes
     for (let j = 0; j < coeffs.length; j += 1) {
       table[i + 1][j] = constraints[i].coeffs[j];
     }
-    //ses
+
+    // Ses
     table[i + 1][coeffs.length + i] = 1;
-    //Solution-row
+
+    // Solution-row
     table[i + 1][coeffs.length + constraints.length] = constraints[i].rhs;
   }
 
-  console.log(table);
+  prettyPrint(table);
 
   return 42;
 }
@@ -73,4 +76,26 @@ function coeffsToFn(coeffs: number[]): string {
   return coeffs.map((it, i) => `${it}*x[${i + 1}]`).join(" + ");
 }
 
-// .|.
+// function prettyPrintWith();
+
+function prettyPrint(tableau: (number | string)[][]) {
+  let colMaxes = [];
+  for (let i = 0; i < tableau[0].length; i += 1) {
+    colMaxes.push(
+      Math.max.apply(
+        null,
+        tableau.map((row) => row[i]).map((n) => n.toString().length),
+      ),
+    );
+  }
+
+  tableau.forEach((row) =>
+    console.log.apply(
+      null,
+      row.map(
+        (val, j) =>
+          `${new Array(colMaxes[j] - val.toString().length + 1).join(" ")}${val}  `,
+      ),
+    ),
+  );
+}
