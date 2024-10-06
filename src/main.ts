@@ -40,9 +40,7 @@ export function maximize(coeffs: number[], constraints: Constraint[]): number {
     for (let j = 0; j < coeffs.length; j += 1) {
       table[i + 1][j] = constraints[i].coeffs[j];
     }
-    for (let j = 0; j < constraints.length; j += 1) {
-      table[i + 1][coeffs.length + j] = 1;
-    }
+    table[i + 1][coeffs.length + i] = 1;
     table[i + 1][coeffs.length + constraints.length] = constraints[i].rhs;
   }
 
