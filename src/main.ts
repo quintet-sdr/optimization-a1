@@ -30,11 +30,11 @@ export function maximize(coeffs: number[], constraints: Constraint[]): number {
   }
 
   //
-constraints.forEach((cst, i) => {
-  for (let j = 0; j < coeffs.length; j += 1) {
-    table[i+1][j]=cst.coeffs[j];
-  }
-});
+// constraints.forEach((cst, i) => {
+//   for (let j = 0; j < coeffs.length; j += 1) {
+//     table[i+1][j]=cst.coeffs[j];
+//   }
+// });
   //
 
   for (let i = 0; i < constraints.length; i += 1) {
