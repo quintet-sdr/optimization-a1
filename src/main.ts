@@ -12,13 +12,13 @@ export function maximize(coeffs: number[], constraints: Constraint[]): number {
       throw new Error(
         `numbers of coefficients don't match:\n` +
           ` function: ${coeffs} (${coeffs.length})\n` +
-          ` constraint ${i + 1}: ${c.coeffs} (${c.coeffs.length})`
+          ` constraint ${i + 1}: ${c.coeffs} (${c.coeffs.length})`,
       );
     }
   });
 
   const table = arrayOf(constraints.length + 1, () =>
-    arrayOf(coeffs.length + constraints.length + 2, () => 0)
+    arrayOf(coeffs.length + constraints.length + 2, () => 0),
   );
 
   console.log(table);
@@ -27,14 +27,6 @@ export function maximize(coeffs: number[], constraints: Constraint[]): number {
   for (let i = 0; i < coeffs.length; i++) {
     table[0][i] = -1 * coeffs[i];
   }
-
-  //
-  // constraints.forEach((cst, i) => {
-  //   for (let j = 0; j < coeffs.length; j += 1) {
-  //     table[i+1][j]=cst.coeffs[j];
-  //   }
-  // });
-  //
 
   for (let i = 0; i < constraints.length; i += 1) {
     for (let j = 0; j < coeffs.length; j += 1) {
