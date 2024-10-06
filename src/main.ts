@@ -7,6 +7,8 @@ export function maximize(coeffs: number[], constraints: Constraint[]): number {
   console.log("Starting the simplex algorithm.");
   console.log(`Function: ${fnOfXs(coeffs.length)} = ${coeffsToFn(coeffs)}`);
 
+  let myvar: Constraint[] = [{}]
+
   constraints.forEach((c, i) => {
     if (c.coeffs.length !== coeffs.length) {
       throw new Error(
