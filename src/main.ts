@@ -22,21 +22,20 @@ export function maximize(coeffs: number[], constraints: Constraint[]): number {
     arrayOf(coeffs.length + constraints.length + 2, 0)
   );
 
-  console.log(table)
+  console.log(table);
 
-  for (let i = 0; i < coeffs.length; i += 1) {
+  // Z-row
+  for (let i = 0; i < coeffs.length; i++) {
     table[0][i] = -1 * coeffs[i];
   }
-  for (let i = 1; i < constraints.length; i += 1) {
+
+  for (let i = 0; i < constraints.length; i += 1) {
     for (let j = 0; j < coeffs.length; j += 1) {
-      table[i][j] = constraints[i].coeffs[j];
+      table[i + 1][j] = constraints[i].coeffs[j];
     }
-    for (let j = 0; j < constraints.length; j += 1) {
-      if (j === i) {
-        table[i][j + coeffs.length] = 1;
-      }
-    }
-    table[i][coeffs.length + constraints.length] = constraints[i].rhs;
+
+    table[i + 1][coeffs.length + 1] = 1;
+    table[i + 1][coeffs.length + constraints.length] = constraints[i].rhs;
   }
 
   console.log(table);
@@ -61,4 +60,5 @@ function fnOfXs(n: number): string {
 function coeffsToFn(coeffs: number[]): string {
   return coeffs.map((it, i) => `${it}*x[${i + 1}]`).join(" + ");
 }
+
 // .|.
