@@ -5,7 +5,7 @@ type Constraint = {
 
 export function maximize(coeffs: number[], constraints: Constraint[]): number {
   console.log("Starting the simplex algorithm.");
-  console.log(`Function: ${coeffsToFn(coeffs)}`);
+  console.log(`Function: ${fnOfXs(coeffs.length)} = ${coeffsToFn(coeffs)}`);
 
   constraints.forEach((c, i) => {
     if (c.coeffs.length !== coeffs.length) {
@@ -19,11 +19,23 @@ export function maximize(coeffs: number[], constraints: Constraint[]): number {
 
   const table = arrayOf(
     constraints.length + 1,
-    // arrayOf(, 0)
-    0 // FIXME
+    arrayOf(coeffs.length + constraints.length + 2, 0)
   );
 
-  // TODO: algorithm
+  for (let i = 0; i < coeffs.length; i += 1) {
+    table[0][i] = -1 * coeffs[i];
+  }
+  for (let i = 1; i < constraints.length; i += 1) {
+    for (let j = 0; j < coeffs.length; j += 1) {
+      table[i][j] = constraints[i].coeffs[j];
+    }
+    for (let j = 0; j < constraints.length; j += 1) {
+      if (j === i) {
+        table[i][j + coeffs.length] = 1;
+      }
+    }
+    table[i][coeffs.length + constraints.length] = constraints[i].rhs;
+  }
 
   console.log(table);
 
@@ -34,6 +46,16 @@ function arrayOf<T>(n: number, item: T): T[] {
   return new Array(n).fill(item);
 }
 
+function fnOfXs(n: number): string {
+  const xs = [];
+  for (let i = 1; i <= n; i += 1) {
+    xs.push(`x[${i}]`);
+  }
+
+  return `F(${xs.join(", ")})`;
+}
+
 function coeffsToFn(coeffs: number[]): string {
   return coeffs.map((it, i) => `${it}*x[${i + 1}]`).join(" + ");
 }
+// .|.
