@@ -7,8 +7,11 @@ export function maximize(coeffs: number[], constraints: Constraint[]): number {
   console.log("Starting the simplex algorithm.");
   console.log(`Function: ${fnOfXs(coeffs.length)} = ${coeffsToFn(coeffs)}`);
 
-  const colNames: string[] = [];
-  const rowNames: string[] = [];
+  const xes = coeffs.keys().map((i) => `s[${i + 1}]`);
+  const ses = constraints.keys().map((i) => `s[${i + 1}]`);
+
+  const rowNames = ["z", ...ses];
+  const colNames = [...xes, ...ses, "Solution", "Ratio"];
 
   constraints.forEach((c, i) => {
     if (c.coeffs.length !== coeffs.length) {
