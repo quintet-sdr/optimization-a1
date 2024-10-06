@@ -33,12 +33,15 @@ export function maximize(coeffs: number[], constraints: Constraint[]): number {
   for (let i = 0; i < coeffs.length; i++) {
     table[0][i] = -1 * coeffs[i];
   }
-
+  
   for (let i = 0; i < constraints.length; i += 1) {
+    //xes
     for (let j = 0; j < coeffs.length; j += 1) {
       table[i + 1][j] = constraints[i].coeffs[j];
     }
+    //ses
     table[i + 1][coeffs.length + i] = 1;
+    //Solution-row
     table[i + 1][coeffs.length + constraints.length] = constraints[i].rhs;
   }
 
