@@ -29,11 +29,21 @@ export function maximize(coeffs: number[], constraints: Constraint[]): number {
     table[0][i] = -1 * coeffs[i];
   }
 
+  //
+constraints.forEach((cst, i) => {
+  for (let j = 0; j < coeffs.length; j += 1) {
+    table[i+1][j]=cst.coeffs[j];
+  }
+});
+  //
+
   for (let i = 0; i < constraints.length; i += 1) {
     for (let j = 0; j < coeffs.length; j += 1) {
       table[i + 1][j] = constraints[i].coeffs[j];
     }
-    table[i + 1][coeffs.length + 1] = 1;
+    for(let j = 0; j < constraints.length; j += 1) {
+      table[i + 1][coeffs.length + j] = 1;
+    }
     table[i + 1][coeffs.length + constraints.length] = constraints[i].rhs;
   }
 
