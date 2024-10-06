@@ -22,6 +22,8 @@ export function maximize(coeffs: number[], constraints: Constraint[]): number {
     arrayOf(coeffs.length + constraints.length + 2, 0)
   );
 
+  console.log(table)
+
   for (let i = 0; i < coeffs.length; i += 1) {
     table[0][i] = -1 * coeffs[i];
   }
