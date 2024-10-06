@@ -17,9 +17,8 @@ export function maximize(coeffs: number[], constraints: Constraint[]): number {
     }
   });
 
-  const table = arrayOf(
-    constraints.length + 1,
-    arrayOf(coeffs.length + constraints.length + 2, 0)
+  const table = arrayOf(constraints.length + 1, () =>
+    arrayOf(coeffs.length + constraints.length + 2, () => 0)
   );
 
   console.log(table);
@@ -30,18 +29,18 @@ export function maximize(coeffs: number[], constraints: Constraint[]): number {
   }
 
   //
-// constraints.forEach((cst, i) => {
-//   for (let j = 0; j < coeffs.length; j += 1) {
-//     table[i+1][j]=cst.coeffs[j];
-//   }
-// });
+  // constraints.forEach((cst, i) => {
+  //   for (let j = 0; j < coeffs.length; j += 1) {
+  //     table[i+1][j]=cst.coeffs[j];
+  //   }
+  // });
   //
 
   for (let i = 0; i < constraints.length; i += 1) {
     for (let j = 0; j < coeffs.length; j += 1) {
       table[i + 1][j] = constraints[i].coeffs[j];
     }
-    for(let j = 0; j < constraints.length; j += 1) {
+    for (let j = 0; j < constraints.length; j += 1) {
       table[i + 1][coeffs.length + j] = 1;
     }
     table[i + 1][coeffs.length + constraints.length] = constraints[i].rhs;
@@ -52,8 +51,8 @@ export function maximize(coeffs: number[], constraints: Constraint[]): number {
   return 42;
 }
 
-function arrayOf<T>(n: number, item: T): T[] {
-  return new Array(n).fill(item);
+function arrayOf<T>(n: number, item: () => T): T[] {
+  return new Array(n).fill(item());
 }
 
 function fnOfXs(n: number): string {
