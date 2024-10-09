@@ -90,6 +90,7 @@ export function maximize(
   }
   prettyPrintWith(table, rowNames, colNames);
   console.log("");
+  //Make pivot column to 0
   let temp_table = table.map((row) => row.slice());
   for (let i = 0; i <= a.length; i++) {
     for (let j = 0; j <= c.length + a.length; j++) {
@@ -100,6 +101,10 @@ export function maximize(
     }
   }
   table = temp_table;
+  prettyPrintWith(table, rowNames, colNames);
+
+  // Changing basis
+  colNames[pivot_col_ind] = rowNames[pivot_row_ind]
   prettyPrintWith(table, rowNames, colNames);
 
   return {
