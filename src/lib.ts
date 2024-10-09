@@ -99,18 +99,7 @@ export function maximize(
     console.log("INITIAL TABLE:");
     prettyPrintWith(tableau, rowNames, colNames, eps);
 
-    const tableauTmp = tableau.map((row) => row.slice());
-
-    for (let i = 0; i < tRows; i += 1) {
-      for (let j = 0; j < tCols - 1; j += 1) {
-        if (i != pivotRowIndex) {
-          tableauTmp[i][j] =
-            tableau[i][j] -
-            tableau[i][pivotColIndex] * tableau[pivotRowIndex][j];
-        }
-      }
-    }
-    tableau = tableauTmp;
+    tableau = crissCrossed(tableau, pivotRowIndex, pivotColIndex);
 
     // Change the basis.
     rowNames[pivotColIndex] = colNames[pivotRowIndex];
@@ -153,6 +142,25 @@ export function maximize(
     x: xIndexes,
     max: answer,
   };
+}
+
+function crissCrossed(
+  tableau: number[][],
+  pivotRow: number,
+  pivotCol: number,
+): number[][] {
+  const newTableau = tableau.map((row) => row.slice());
+
+  for (let i = 0; i < tableau.length; i += 1) {
+    for (let j = 0; j < tableau[0].length - 1; j += 1) {
+      if (i != pivotRow) {
+        newTableau[i][j] =
+          tableau[i][j] - tableau[i][pivotCol] * tableau[pivotRow][j];
+      }
+    }
+  }
+
+  return newTableau;
 }
 
 function coeffsToFn(coeffs: number[]): string {
