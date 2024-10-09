@@ -102,7 +102,8 @@ export function maximize(
       pivotRowValue,
     );
     console.log("Pivot element: ", pivotElement);
-    console.log("\nINITIAL TABLE: ");
+    console.log();
+    console.log("INITIAL TABLE: ");
     prettyPrintWith(table, rowNames, colNames, eps);
     //Make pivot column to 0
     let tableTmp = table.map((row) => row.slice());
