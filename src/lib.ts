@@ -78,7 +78,7 @@ export function maximize(
     }
 
     // Find pivot element
-    let pivotElement = tableau[pivotRowIndex][pivotColIndex];
+    const pivotElement = tableau[pivotRowIndex][pivotColIndex];
 
     // Divide pivot row to pivot element
     for (let j = 0; j <= c.length + b.length; j += 1) {
@@ -95,7 +95,7 @@ export function maximize(
     console.log("INITIAL TABLE:");
     prettyPrintWith(tableau, rowNames, colNames, eps);
     //Make pivot column to 0
-    let tableTmp = tableau.map((row) => row.slice());
+    const tableTmp = tableau.map((row) => row.slice());
     for (let i = 0; i <= a.length; i += 1) {
       for (let j = 0; j <= c.length + a.length; j += 1) {
         if (i != pivotRowIndex) {
@@ -125,8 +125,8 @@ export function maximize(
   console.log("Final table:");
   prettyPrintWith(tableau, rowNames, colNames, eps);
 
-  let answer = tableau[0][c.length + a.length];
-  let xIndexes = arrayOf(c.length, () => 0);
+  const answer = tableau[0][c.length + a.length];
+  const xIndexes = arrayOf(c.length, () => 0);
   console.log(rowNames);
   for (let i = 1; i < rowNames.length; i += 1) {
     if (rowNames[i].startsWith("x")) {
