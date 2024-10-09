@@ -40,10 +40,9 @@ export function maximize(
     printHeading(`Iteration ${iteration}`);
 
     const pivotCol = findPivotCol(tableau, c);
-    for (let i = 0; i < tableau.length; i += 1) {
-      tableau[i][tableauCols - 1] =
-        tableau[i][tableauCols - 2] / tableau[i][pivotCol];
-    }
+    tableau.forEach((row) => {
+      row[tableauCols - 1] = row[tableauCols - 2] / row[pivotCol];
+    });
 
     const pivotRow = findPivotRow(tableau);
     const pivotElement = tableau[pivotRow][pivotCol];
