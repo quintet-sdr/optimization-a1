@@ -72,7 +72,14 @@ export function maximize(
     }
   }
   console.log(pivot_row_val, pivot_row_ind);
-  console.log("Pivot element: ", table[pivot_col_ind][pivot_row_ind])
+  let pivot_elem = table[pivot_col_ind][pivot_row_ind]
+  console.log("Pivot element: ",pivot_elem)
+
+  for(let j = 0; j <= c.length + b.length; j++){
+    table[pivot_row_ind][j] = table[pivot_row_ind][j] / pivot_elem;
+  }
+
+  prettyPrint(table);
   
 
   
