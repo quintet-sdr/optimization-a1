@@ -24,7 +24,7 @@ export function maximize(
   );
 
   // Z-row
-  for (let i = 0; i < c.length; i++) {
+  for (let i = 0; i < c.length; i += 1) {
     tableau[0][i] = -1 * c[i];
   }
 
@@ -49,8 +49,8 @@ export function maximize(
     let pivotColValue = Infinity;
     let pivotColIndex = NaN;
 
-    for (let i = 0; i <= a.length; i++) {
-      for (let j = 0; j < c.length; j++) {
+    for (let i = 0; i <= a.length; i += 1) {
+      for (let j = 0; j < c.length; j += 1) {
         if (tableau[i][j] < pivotColValue && j !== 0) {
           pivotColValue = tableau[i][j];
           pivotColIndex = j;
@@ -59,7 +59,7 @@ export function maximize(
     }
 
     // Compute the ratio
-    for (let i = 0; i <= a.length; i++) {
+    for (let i = 0; i <= a.length; i += 1) {
       tableau[i][c.length + b.length + 1] =
         tableau[i][c.length + b.length] / tableau[i][pivotColIndex];
     }
@@ -67,7 +67,7 @@ export function maximize(
     // Find pivot row
     let pivotRowValue = Infinity;
     let pivotRowIndex = NaN;
-    for (let i = 0; i <= a.length; i++) {
+    for (let i = 0; i <= a.length; i += 1) {
       if (
         tableau[i][c.length + b.length + 1] < pivotRowValue &&
         tableau[i][c.length + b.length + 1] > 0
@@ -81,7 +81,7 @@ export function maximize(
     let pivotElement = tableau[pivotRowIndex][pivotColIndex];
 
     // Divide pivot row to pivot element
-    for (let j = 0; j <= c.length + b.length; j++) {
+    for (let j = 0; j <= c.length + b.length; j += 1) {
       tableau[pivotRowIndex][j] = tableau[pivotRowIndex][j] / pivotElement;
     }
     console.log(
@@ -96,8 +96,8 @@ export function maximize(
     prettyPrintWith(tableau, rowNames, colNames, eps);
     //Make pivot column to 0
     let tableTmp = tableau.map((row) => row.slice());
-    for (let i = 0; i <= a.length; i++) {
-      for (let j = 0; j <= c.length + a.length; j++) {
+    for (let i = 0; i <= a.length; i += 1) {
+      for (let j = 0; j <= c.length + a.length; j += 1) {
         if (i != pivotRowIndex) {
           tableTmp[i][j] =
             tableau[i][j] -
@@ -128,7 +128,7 @@ export function maximize(
   let answer = tableau[0][c.length + a.length];
   let xIndexes = arrayOf(c.length, () => 0);
   console.log(rowNames);
-  for (let i = 1; i < rowNames.length; i++) {
+  for (let i = 1; i < rowNames.length; i += 1) {
     if (rowNames[i].startsWith("x")) {
       xIndexes[
         Number.parseInt(rowNames[i].slice(2, rowNames[i].length - 1)) - 1
