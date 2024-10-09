@@ -5,14 +5,17 @@ export type SimplexResult = {
   max: number;
 };
 
+/**
+ * @param c - The coefficients of the objective function.
+ * @param a - The coefficients of the constraint functions.
+ * @param b - The right-hand side numbers.
+ * @param eps - Precision in logging (digits after the decimal point).
+ * @returns An object containing the computed decision variables and maximum value.
+ */
 export function maximize(
-  // coefficitents of the objective function
   c: number[],
-  // coefficients of the constraint functions
   a: number[][],
-  // right-hand side numbers
   b: number[],
-  // precision
   eps: number,
 ): SimplexResult | never {
   assertLengths(c, a, b);
