@@ -32,25 +32,16 @@ export function maximize(
 
   let tableau = arrayOf(tRows, () => arrayOf(tCols, () => 0));
 
-  // Z-row
-  for (let i = 0; i < c.length; i += 1) {
-    tableau[0][i] = -1 * c[i];
-  }
-
-  // X-es
   for (let i = 0; 1 + i < tRows; i += 1) {
     for (let j = 0; j < c.length; j += 1) {
+      // Z-row
+      tableau[0][j] = -1 * c[j];
+      // X-es
       tableau[1 + i][j] = a[i][j];
     }
-  }
-
-  // S-es
-  for (let i = 0; 1 + i < tRows; i += 1) {
+    // S-es
     tableau[1 + i][c.length + i] = 1;
-  }
-
-  // Solution row
-  for (let i = 0; 1 + i < tRows; i += 1) {
+    // Solution row
     tableau[1 + i][tCols - 2] = b[i];
   }
 
