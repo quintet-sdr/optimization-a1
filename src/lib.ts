@@ -81,7 +81,6 @@ export function maximize(
     .forEach(({ rowName, i }) => {
       if (rowName.startsWith("x")) {
         const numPart = Number.parseInt(rowName.match(/\[(\d+)\]/)![1]);
-
         xIndexes[numPart - 1] = tableau[i][tableauCols - 2];
       }
     });
