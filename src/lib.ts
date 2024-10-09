@@ -136,13 +136,14 @@ export function maximize(
   const xIndexes = arrayOf(c.length, () => 0);
   console.log(rowNames);
 
-  rowNames.slice(1).forEach((_, i) => {
-    const rowName = rowNames[i];
+  rowNames.slice(1).forEach((rowName, iShifted) => {
+    const i = iShifted + 1;
+
     if (rowName.startsWith("x")) {
-      const ind =
+      const xI =
         Number.parseInt(rowName.slice(1).slice(1, rowName.length - 2)) - 1;
 
-      xIndexes[ind] = tableau[i][tCols - 2];
+      xIndexes[xI] = tableau[i][tCols - 2];
     }
   });
 
