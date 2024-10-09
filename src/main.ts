@@ -48,25 +48,31 @@ export function maximize(
   prettyPrintWith(table, rowNames, colNames);
 
   let pivot_col_val = 1e6;
+  let pivot_col_ind = -1;
   for (let i = 0; i <= a.length; i++) {
     for (let j = 0; j < c.length; j++) {
       if (table[i][j] < pivot_col_val) {
         pivot_col_val = table[i][j];
+        pivot_col_ind = i;
       }
     }
   }
-
+  console.log(pivot_col_val, pivot_col_ind);
+  
+  for (let i = 0; i <= a.length; i++){
+    table[i][table.length - 1] = table[i][table.length - 2] / table[i][pivot_col_ind];
+  }
+  prettyPrint(table);
   let pivot_row_val = 1e6;
   for (let i = 0; i <= a.length; i++) {
     for (let j = 0; j < table.length - 1; j++) {
-      console.log(table[i][j])
       if (table[i][j] < pivot_row_val && table[i][j] >= 0) {
         pivot_row_val = table[i][j];
       }
     }
   }
 
-  console.log(pivot_col_val, pivot_row_val);
+  
 
   return {
     x: [],
