@@ -80,8 +80,7 @@ export function maximize(
     .slice(1)
     .forEach(({ rowName, i }) => {
       if (rowName.startsWith("x")) {
-        const numPartStr = rowName.slice(1).slice(1, rowName.length - 2);
-        const numPart = Number.parseInt(numPartStr);
+        const numPart = Number.parseInt(rowName.match(/\[(\d+)\]/)![1]);
 
         xIndexes[numPart - 1] = tableau[i][tableauCols - 2];
       }
