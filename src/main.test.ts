@@ -1,6 +1,6 @@
 import { expect, test } from "bun:test";
 
-import { maximize, type SimplexResult } from "./main";
+import { maximize, type SimplexResult } from "./simplex";
 
 test("problem-1", () => {
   const left = maximize(
