@@ -89,7 +89,7 @@ export function maximize(
     table[pivot_row_ind][j] = table[pivot_row_ind][j] / pivot_elem;
   }
   prettyPrint(table);
-
+  console.log("")
   for (let i = 0; i <= a.length; i++) {
     for (let j = 0; j <= c.length + a.length; j++) {
       if (i != pivot_row_ind) {
