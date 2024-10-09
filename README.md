@@ -7,7 +7,7 @@
 > **Pay attention!**
 >
 > We solved this assignment using TypeScript with the Bun runtime. The code will
-> not work with Node.js because we used the built-in testing library,
+> not work with Node.js because we&CloseCurlyQuote;ve used the built-in testing library,
 > unavailable on Node.
 
 ## Installation
