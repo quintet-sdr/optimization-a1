@@ -20,29 +20,29 @@ export function maximize(
   const rowNames = ["z", ...sStrings];
   const colNames = [...xStrings, ...sStrings, "Solution", "Ratio"];
 
-  let table = arrayOf(1 + a.length, () =>
+  let tableau = arrayOf(1 + a.length, () =>
     arrayOf(c.length + a.length + 2, () => 0),
   );
 
-  prettyPrintWith(table, rowNames, colNames, eps);
+  prettyPrintWith(tableau, rowNames, colNames, eps);
   console.log();
 
   // Z-row
   for (let i = 0; i < c.length; i++) {
-    table[0][i] = -1 * c[i];
+    tableau[0][i] = -1 * c[i];
   }
 
   for (let i = 0; i < a.length; i += 1) {
     // X-es
     for (let j = 0; j < c.length; j += 1) {
-      table[i + 1][j] = a[i][j];
+      tableau[i + 1][j] = a[i][j];
     }
 
     // S-es
-    table[i + 1][c.length + i] = 1;
+    tableau[i + 1][c.length + i] = 1;
 
     // Solution row
-    table[i + 1][c.length + a.length] = b[i];
+    tableau[i + 1][c.length + a.length] = b[i];
   }
   let running = true;
   let counter = 0;
@@ -55,8 +55,8 @@ export function maximize(
 
     for (let i = 0; i <= a.length; i++) {
       for (let j = 0; j < c.length; j++) {
-        if (table[i][j] < pivotColValue && j !== 0) {
-          pivotColValue = table[i][j];
+        if (tableau[i][j] < pivotColValue && j !== 0) {
+          pivotColValue = tableau[i][j];
           pivotColIndex = j;
         }
       }
@@ -64,8 +64,8 @@ export function maximize(
 
     // Compute the ratio
     for (let i = 0; i <= a.length; i++) {
-      table[i][c.length + b.length + 1] =
-        table[i][c.length + b.length] / table[i][pivotColIndex];
+      tableau[i][c.length + b.length + 1] =
+        tableau[i][c.length + b.length] / tableau[i][pivotColIndex];
     }
 
     // Find pivot row
@@ -73,20 +73,20 @@ export function maximize(
     let pivotRowIndex = NaN;
     for (let i = 0; i <= a.length; i++) {
       if (
-        table[i][c.length + b.length + 1] < pivotRowValue &&
-        table[i][c.length + b.length + 1] > 0
+        tableau[i][c.length + b.length + 1] < pivotRowValue &&
+        tableau[i][c.length + b.length + 1] > 0
       ) {
-        pivotRowValue = table[i][c.length + b.length + 1];
+        pivotRowValue = tableau[i][c.length + b.length + 1];
         pivotRowIndex = i;
       }
     }
 
     // Find pivot element
-    let pivotElement = table[pivotRowIndex][pivotColIndex];
+    let pivotElement = tableau[pivotRowIndex][pivotColIndex];
 
     // Divide pivot row to pivot element
     for (let j = 0; j <= c.length + b.length; j++) {
-      table[pivotRowIndex][j] = table[pivotRowIndex][j] / pivotElement;
+      tableau[pivotRowIndex][j] = tableau[pivotRowIndex][j] / pivotElement;
     }
     console.log(
       `Pivot column element: ${colNames[pivotColIndex]} = ${pivotColValue}`,
@@ -97,26 +97,27 @@ export function maximize(
     console.log(`Pivot element: ${pivotElement}`);
     console.log();
     console.log("INITIAL TABLE:");
-    prettyPrintWith(table, rowNames, colNames, eps);
+    prettyPrintWith(tableau, rowNames, colNames, eps);
     //Make pivot column to 0
-    let tableTmp = table.map((row) => row.slice());
+    let tableTmp = tableau.map((row) => row.slice());
     for (let i = 0; i <= a.length; i++) {
       for (let j = 0; j <= c.length + a.length; j++) {
         if (i != pivotRowIndex) {
           tableTmp[i][j] =
-            table[i][j] - table[i][pivotColIndex] * table[pivotRowIndex][j];
+            tableau[i][j] -
+            tableau[i][pivotColIndex] * tableau[pivotRowIndex][j];
         }
       }
     }
-    table = tableTmp;
+    tableau = tableTmp;
 
     // Changing basis
     rowNames[pivotColIndex] = colNames[pivotRowIndex];
     console.log();
     console.log("TABLE AFTER ITERATION:");
-    prettyPrintWith(table, rowNames, colNames, eps);
+    prettyPrintWith(tableau, rowNames, colNames, eps);
 
-    if (table[0].filter((it) => it < 0).length === 0) {
+    if (tableau[0].filter((it) => it < 0).length === 0) {
       running = false;
     }
     console.log();
@@ -126,16 +127,16 @@ export function maximize(
 
   console.log();
   console.log("Final table:");
-  prettyPrintWith(table, rowNames, colNames, eps);
+  prettyPrintWith(tableau, rowNames, colNames, eps);
 
-  let answer = table[0][c.length + a.length];
+  let answer = tableau[0][c.length + a.length];
   let xIndexes = arrayOf(c.length, () => 0);
   console.log(rowNames);
   for (let i = 1; i < rowNames.length; i++) {
     if (rowNames[i].startsWith("x")) {
       xIndexes[
         Number.parseInt(rowNames[i].slice(2, rowNames[i].length - 1)) - 1
-      ] = table[i][c.length + a.length];
+      ] = tableau[i][c.length + a.length];
     }
   }
   console.log(answer);
