@@ -104,7 +104,7 @@ export function maximize(
   prettyPrintWith(table, rowNames, colNames);
 
   // Changing basis
-  colNames[pivot_col_ind] = rowNames[pivot_row_ind]
+  rowNames[pivot_col_ind] = colNames[pivot_row_ind]
   prettyPrintWith(table, rowNames, colNames);
 
   return {
