@@ -6,13 +6,12 @@
 
 ### Pay attention
 
-To complete the assignment we used BunJS with TypeScript. The project will not
-work on NodeJS because we used Buntest testing library that is not unavailable
-on Node.
+To solve the assignment, we used Bun with TypeScript. The project will not work
+on NodeJS because we used the built-in testing library unavailable on Node.
 
 ## Installation
 
-You can install bun using [official guide](https://bun.sh/docs/installation):
+You can install Bun using the [official guide](https://bun.sh/docs/installation):
 
 For MacOS and Linux:
 
@@ -26,21 +25,21 @@ For Windows:
 powershell -c "irm bun.sh/install.ps1|iex"
 ```
 
-After all install dependencies via:
+## Local Running
+
+After cloning the repository, install dependencies.
 
 ```bash
 bun install
 ```
 
-## Execution
-
-To run project use:
+To run the project, use:
 
 ```bash
 bun test
 ```
 
-You can project report [here](report/report.pdf)
+The report is contained [here](/report/report.pdf).
 
 [Bun.js]: https://img.shields.io/badge/Bun-%23000000.svg?style=for-the-badge&logo=bun&logoColor=white
 [Bun-url]: https://bun.sh/
