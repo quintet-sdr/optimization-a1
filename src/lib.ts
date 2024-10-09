@@ -32,6 +32,9 @@ export function maximize(
 
   let tableau = buildTableau(c, a, b);
 
+  console.log("\n" + "Initial table:");
+  prettyPrintWith(tableau, rowNames, colNames, eps);
+
   const tableauCols = c.length + a.length + 2;
 
   let iteration = 0;
@@ -61,7 +64,7 @@ export function maximize(
     tableau = crissCrossed(tableau, pivotRow, pivotCol);
     rowNames[pivotCol] = colNames[pivotRow];
 
-    console.log("\n" + "After iteration:");
+    console.log("\n" + "After the iteration:");
     prettyPrintWith(tableau, rowNames, colNames, eps);
 
     if (tableau[0].every((it) => it >= 0)) {
