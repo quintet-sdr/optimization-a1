@@ -99,7 +99,6 @@ export function maximize(
     console.log("INITIAL TABLE:");
     prettyPrintWith(tableau, rowNames, colNames, eps);
 
-    // Set the pivot column to zeros.
     const tableTmp = tableau.map((row) => row.slice());
 
     for (let i = 0; i < tRows; i += 1) {
