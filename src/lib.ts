@@ -45,7 +45,7 @@ export function maximize(
   while (running) {
     console.log();
     console.log(`START OF ITERATION ${counter}`);
-    // Find pivot column
+    // Find the pivot column.
     let pivotColValue = Infinity;
     let pivotColIndex = NaN;
 
@@ -58,13 +58,13 @@ export function maximize(
       }
     }
 
-    // Compute the ratio
+    // Compute the ratio.
     for (let i = 0; i <= a.length; i += 1) {
       tableau[i][c.length + b.length + 1] =
         tableau[i][c.length + b.length] / tableau[i][pivotColIndex];
     }
 
-    // Find pivot row
+    // Find the pivot row.
     let pivotRowValue = Infinity;
     let pivotRowIndex = NaN;
     for (let i = 0; i <= a.length; i += 1) {
@@ -77,10 +77,10 @@ export function maximize(
       }
     }
 
-    // Find pivot element
+    // Find the pivot element.
     const pivotElement = tableau[pivotRowIndex][pivotColIndex];
 
-    // Divide pivot row to pivot element
+    // Divide the pivot row by the pivot element.
     for (let j = 0; j <= c.length + b.length; j += 1) {
       tableau[pivotRowIndex][j] = tableau[pivotRowIndex][j] / pivotElement;
     }
@@ -94,7 +94,7 @@ export function maximize(
     console.log();
     console.log("INITIAL TABLE:");
     prettyPrintWith(tableau, rowNames, colNames, eps);
-    //Make pivot column to 0
+    // Set the pivot column to zeros.
     const tableTmp = tableau.map((row) => row.slice());
     for (let i = 0; i <= a.length; i += 1) {
       for (let j = 0; j <= c.length + a.length; j += 1) {
@@ -107,7 +107,7 @@ export function maximize(
     }
     tableau = tableTmp;
 
-    // Changing basis
+    // Change the basis.
     rowNames[pivotColIndex] = colNames[pivotRowIndex];
     console.log();
     console.log("TABLE AFTER ITERATION:");
