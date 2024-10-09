@@ -63,7 +63,13 @@ export function maximize(
     prettyPrintWith(tableau, rowNames, colNames, eps);
 
     tableau = crissCrossed(tableau, pivotRow, pivotCol);
-    rowNames[pivotCol] = colNames[pivotRow];
+
+    if (rowNames[pivotCol] !== colNames[pivotRow]) {
+      console.log(
+        "\n" + `${rowNames[pivotCol]} leaves, ${colNames[pivotRow]} enters`,
+      );
+      rowNames[pivotCol] = colNames[pivotRow];
+    }
 
     console.log("\n" + "After the iteration:");
     prettyPrintWith(tableau, rowNames, colNames, eps);
