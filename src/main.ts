@@ -64,13 +64,15 @@ export function maximize(
   }
   prettyPrint(table);
   let pivot_row_val = 1e6;
+  let pivot_row_ind = -1;
   for (let i = 0; i <= a.length; i++) {
-    for (let j = 0; j < table.length - 1; j++) {
-      if (table[i][j] < pivot_row_val && table[i][j] >= 0) {
-        pivot_row_val = table[i][j];
-      }
+    if(table[i][c.length + b.length + 1] < pivot_row_val && table[i][c.length + b.length + 1] > 0){
+      pivot_row_val = table[i][c.length + b.length + 1]
+      pivot_row_ind = i;
     }
   }
+  console.log(pivot_row_val, pivot_row_ind);
+  
 
   
 
