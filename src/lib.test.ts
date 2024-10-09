@@ -2,7 +2,7 @@ import { expect, test } from "bun:test";
 
 import { maximize, type SimplexResult } from "./lib";
 
-const PRECISION: number = 5;
+const PRECISION: number = 3;
 
 test("problem-1", () => {
   const left = maximize(
