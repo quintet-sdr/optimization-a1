@@ -53,7 +53,7 @@ export function maximize(
     for (let j = 0; j < c.length; j++) {
       if (table[i][j] < pivot_col_val) {
         pivot_col_val = table[i][j];
-        pivot_col_ind = i;
+        pivot_col_ind = j;
       }
     }
   }
