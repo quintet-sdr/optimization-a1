@@ -44,12 +44,10 @@ export function maximize(
     // Solution-row
     table[i + 1][c.length + a.length] = b[i];
   }
-
-  prettyPrintWith(table, rowNames, colNames);
   let running = true;
   let counter = 0;
   while (running) {
-    console.log("START OF ITERATION ", counter);
+    console.log("\nSTART OF ITERATION ", counter);
     // Find pivot column
     let pivot_col_val = 1e6;
     let pivot_col_ind = -1;
@@ -80,8 +78,8 @@ export function maximize(
         pivot_row_ind = i;
       }
     }
-    console.log("Pivot column element | ind: ", pivot_col_val, pivot_col_ind);
-    console.log("Pivot row element | ind: ", pivot_row_val, pivot_row_ind);
+    console.log("Pivot column element: ", colNames[pivot_col_ind], " = ", pivot_col_val);
+    console.log("Pivot row element: ", rowNames[pivot_row_ind], " = ", pivot_row_val);
 
     //Find pivot element
     let pivot_elem = table[pivot_row_ind][pivot_col_ind];
@@ -91,6 +89,8 @@ export function maximize(
     for (let j = 0; j <= c.length + b.length; j++) {
       table[pivot_row_ind][j] = table[pivot_row_ind][j] / pivot_elem;
     }
+    console.log("\nINITIAL TABLE: ")
+    prettyPrintWith(table, rowNames, colNames);
     //Make pivot column to 0
     let temp_table = table.map((row) => row.slice());
     for (let i = 0; i <= a.length; i++) {
@@ -105,16 +105,17 @@ export function maximize(
 
     // Changing basis
     rowNames[pivot_col_ind] = colNames[pivot_row_ind];
+    console.log("\nTABLE AFTER ITERATION:")
     prettyPrintWith(table, rowNames, colNames);
 
     if (table[0].filter((it) => it < 0).length === 0) {
       running = false;
     }
-    console.log("END OF ITERATION ", counter);
+    console.log("\nEND OF ITERATION ", counter);
     counter += 1;
   }
 
-  console.log("Final table:");
+  console.log("\nFinal table:");
   prettyPrintWith(table, rowNames, colNames);
 
   let answer = table[0][c.length + a.length];
