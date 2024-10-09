@@ -20,7 +20,7 @@ export function maximize(
   const rowNames = ["z", ...sStrings];
   const colNames = [...xStrings, ...sStrings, "Solution", "Ratio"];
 
-  let table = arrayOf(a.length + 1, () =>
+  let table = arrayOf(1 + a.length, () =>
     arrayOf(c.length + a.length + 2, () => 0),
   );
 
