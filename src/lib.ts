@@ -44,6 +44,7 @@ export function maximize(
     // Solution row
     tableau[i + 1][c.length + a.length] = b[i];
   }
+
   let running = true;
   let counter = 0;
   while (running) {
@@ -98,8 +99,10 @@ export function maximize(
     console.log();
     console.log("INITIAL TABLE:");
     prettyPrintWith(tableau, rowNames, colNames, eps);
+
     // Set the pivot column to zeros.
     const tableTmp = tableau.map((row) => row.slice());
+
     for (let i = 0; i <= a.length; i += 1) {
       for (let j = 0; j <= c.length + a.length; j += 1) {
         if (i != pivotRowIndex) {
@@ -120,6 +123,7 @@ export function maximize(
     if (tableau[0].filter((it) => it < 0).length === 0) {
       running = false;
     }
+
     console.log();
     console.log(`END OF ITERATION ${counter}`);
     counter += 1;
@@ -132,6 +136,7 @@ export function maximize(
   const answer = tableau[0][c.length + a.length];
   const xIndexes = arrayOf(c.length, () => 0);
   console.log(rowNames);
+
   for (let i = 1; i < rowNames.length; i += 1) {
     if (rowNames[i].startsWith("x")) {
       xIndexes[
@@ -139,6 +144,7 @@ export function maximize(
       ] = tableau[i][c.length + a.length];
     }
   }
+
   console.log(answer);
   console.log(xIndexes);
 
