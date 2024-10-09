@@ -54,6 +54,9 @@ export function maximize(
 
   let counter = 0;
   while (true) {
+    counter += 1;
+
+    console.log();
     printHeading(`Iteration ${counter}`);
     console.log();
 
@@ -77,7 +80,7 @@ export function maximize(
     console.log(` - column: ${colNames[pivotCol]}`);
     console.log(` - element: ${pivotElement}`);
     console.log();
-    console.log("INITIAL TABLE:");
+    console.log("[ Initially ]");
     prettyPrintWith(tableau, rowNames, colNames, eps);
 
     tableau = crissCrossed(tableau, pivotRow, pivotCol);
@@ -85,25 +88,21 @@ export function maximize(
     // Change the basis.
     rowNames[pivotCol] = colNames[pivotRow];
     console.log();
-    console.log("TABLE AFTER ITERATION:");
+    console.log("[ After iteration ]");
     prettyPrintWith(tableau, rowNames, colNames, eps);
 
     if (tableau[0].filter((it) => it < 0).length === 0) {
       break;
     }
-
-    console.log();
-    console.log(`END OF ITERATION ${counter}`);
-    counter += 1;
   }
 
   console.log();
-  console.log("Final table:");
+  printHeading("Final Table");
+  console.log();
   prettyPrintWith(tableau, rowNames, colNames, eps);
 
   const answer = tableau[0][tCols - 2];
   const xIndexes = arrayOf(c.length, () => 0);
-  console.log(rowNames);
 
   rowNames
     .map((rowName, i) => ({ rowName, i }))
@@ -117,13 +116,16 @@ export function maximize(
       }
     });
 
-  console.log(xIndexes);
-  console.log(answer);
-
-  return {
+  const result: SimplexResult = {
     x: xIndexes,
     max: answer,
   };
+
+  console.log();
+  console.log(`Decision variables: ${result.x}`);
+  console.log(`Maximum value: ${result.max}`);
+
+  return result;
 }
 
 function crissCrossed(
