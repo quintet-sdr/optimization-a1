@@ -51,8 +51,8 @@ export function maximize(
     console.log();
     console.log(`START OF ITERATION ${counter}`);
     // Find pivot column
-    let pivotColValue = 1e6;
-    let pivotColIndex = -1;
+    let pivotColValue = Infinity;
+    let pivotColIndex = NaN;
 
     for (let i = 0; i <= a.length; i++) {
       for (let j = 0; j < c.length; j++) {
@@ -70,8 +70,8 @@ export function maximize(
     }
 
     // Find pivot row
-    let pivotRowValue = 1e6;
-    let pivotRowIndex = -1;
+    let pivotRowValue = Infinity;
+    let pivotRowIndex = NaN;
     for (let i = 0; i <= a.length; i++) {
       if (
         table[i][c.length + b.length + 1] < pivotRowValue &&
@@ -133,7 +133,7 @@ export function maximize(
   let xIndexes = arrayOf(c.length, () => 0);
   console.log(rowNames);
   for (let i = 1; i < rowNames.length; i++) {
-    if (rowNames[i][0] === "x") {
+    if (rowNames[i].startsWith("x")) {
       xIndexes[
         Number.parseInt(rowNames[i].slice(2, rowNames[i].length - 1)) - 1
       ] = table[i][c.length + a.length];
