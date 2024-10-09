@@ -46,7 +46,6 @@ export function maximize(
 
     const pivotRow = findPivotRow(tableau);
     const pivotElement = tableau[pivotRow][pivotCol];
-
     tableau[pivotRow] = tableau[pivotRow].map((it) => it / pivotElement);
 
     console.log(
