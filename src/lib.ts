@@ -45,9 +45,8 @@ export function maximize(
     tableau[i][tableau[0].length - 2] = b[i - 1];
   }
 
-  let running = true;
   let counter = 0;
-  while (running) {
+  while (true) {
     console.log();
     console.log(`START OF ITERATION ${counter}`);
     // Find the pivot column.
@@ -121,7 +120,7 @@ export function maximize(
     prettyPrintWith(tableau, rowNames, colNames, eps);
 
     if (tableau[0].filter((it) => it < 0).length === 0) {
-      running = false;
+      break;
     }
 
     console.log();
