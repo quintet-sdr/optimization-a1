@@ -4,20 +4,20 @@ export type SimplexResult = {
 };
 
 export function maximize(
-  c: number[], // coefficitents of objective function
-  a: number[][], // coefficients of constraint functions
-  b: number[] // right-hand side numbers,
+  c: number[], // coefficitents of the objective function
+  a: number[][], // coefficients of the constraint functions
+  b: number[], // right-hand side numbers,
 ): SimplexResult | never {
   simplex_assert(c, a, b);
 
   console.log("Starting the simplex algorithm.");
   console.log(`Function: ${fnOfXs(c.length)} = ${coeffsToFn(c)}`);
 
-  const xes = c.map((_, i) => `x[${i + 1}]`);
-  const ses = a.map((_, i) => `s[${i + 1}]`);
+  const xStrings = c.map((_, i) => `x[${i + 1}]`);
+  const sStrings = a.map((_, i) => `s[${i + 1}]`);
 
-  const rowNames = ["z", ...ses];
-  const colNames = [...xes, ...ses, "Solution", "Ratio"];
+  const rowNames = ["z", ...sStrings];
+  const colNames = [...xStrings, ...sStrings, "Solution", "Ratio"];
 
   let table = arrayOf(a.length + 1, () =>
     arrayOf(c.length + a.length + 2, () => 0),
