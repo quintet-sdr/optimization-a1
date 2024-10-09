@@ -50,13 +50,14 @@ export function maximize(
   while (running) {
     console.log("\nSTART OF ITERATION ", counter);
     // Find pivot column
-    let pivot_col_val = 1e6;
-    let pivot_col_ind = -1;
+    let pivotColValue = 1e6;
+    let pivotColIndex = -1;
+
     for (let i = 0; i <= a.length; i++) {
       for (let j = 0; j < c.length; j++) {
-        if (table[i][j] < pivot_col_val && j !== 0) {
-          pivot_col_val = table[i][j];
-          pivot_col_ind = j;
+        if (table[i][j] < pivotColValue && j !== 0) {
+          pivotColValue = table[i][j];
+          pivotColIndex = j;
         }
       }
     }
@@ -64,58 +65,58 @@ export function maximize(
     // Compute the ratio
     for (let i = 0; i <= a.length; i++) {
       table[i][c.length + b.length + 1] =
-        table[i][c.length + b.length] / table[i][pivot_col_ind];
+        table[i][c.length + b.length] / table[i][pivotColIndex];
     }
 
     // Find pivot row
-    let pivot_row_val = 1e6;
-    let pivot_row_ind = -1;
+    let pivotRowValue = 1e6;
+    let pivotRowIndex = -1;
     for (let i = 0; i <= a.length; i++) {
       if (
-        table[i][c.length + b.length + 1] < pivot_row_val &&
+        table[i][c.length + b.length + 1] < pivotRowValue &&
         table[i][c.length + b.length + 1] > 0
       ) {
-        pivot_row_val = table[i][c.length + b.length + 1];
-        pivot_row_ind = i;
+        pivotRowValue = table[i][c.length + b.length + 1];
+        pivotRowIndex = i;
       }
     }
 
     // Find pivot element
-    let pivot_elem = table[pivot_row_ind][pivot_col_ind];
+    let pivotElement = table[pivotRowIndex][pivotColIndex];
 
     // Divide pivot row to pivot element
     for (let j = 0; j <= c.length + b.length; j++) {
-      table[pivot_row_ind][j] = table[pivot_row_ind][j] / pivot_elem;
+      table[pivotRowIndex][j] = table[pivotRowIndex][j] / pivotElement;
     }
     console.log(
       "Pivot column element: ",
-      colNames[pivot_col_ind],
+      colNames[pivotColIndex],
       " = ",
-      pivot_col_val,
+      pivotColValue,
     );
     console.log(
       "Pivot row element: ",
-      rowNames[pivot_row_ind],
+      rowNames[pivotRowIndex],
       " = ",
-      pivot_row_val,
+      pivotRowValue,
     );
-    console.log("Pivot element: ", pivot_elem);
+    console.log("Pivot element: ", pivotElement);
     console.log("\nINITIAL TABLE: ");
     prettyPrintWith(table, rowNames, colNames, eps);
     //Make pivot column to 0
-    let temp_table = table.map((row) => row.slice());
+    let tableTmp = table.map((row) => row.slice());
     for (let i = 0; i <= a.length; i++) {
       for (let j = 0; j <= c.length + a.length; j++) {
-        if (i != pivot_row_ind) {
-          temp_table[i][j] =
-            table[i][j] - table[i][pivot_col_ind] * table[pivot_row_ind][j];
+        if (i != pivotRowIndex) {
+          tableTmp[i][j] =
+            table[i][j] - table[i][pivotColIndex] * table[pivotRowIndex][j];
         }
       }
     }
-    table = temp_table;
+    table = tableTmp;
 
     // Changing basis
-    rowNames[pivot_col_ind] = colNames[pivot_row_ind];
+    rowNames[pivotColIndex] = colNames[pivotRowIndex];
     console.log("\nTABLE AFTER ITERATION:");
     prettyPrintWith(table, rowNames, colNames, eps);
 
@@ -126,24 +127,25 @@ export function maximize(
     counter += 1;
   }
 
-  console.log("\nFinal table:");
+  console.log();
+  console.log("Final table:");
   prettyPrintWith(table, rowNames, colNames, eps);
 
   let answer = table[0][c.length + a.length];
-  let x_inds = arrayOf(c.length, () => 0);
+  let xIndexes = arrayOf(c.length, () => 0);
   console.log(rowNames);
   for (let i = 1; i < rowNames.length; i++) {
     if (rowNames[i][0] === "x") {
-      x_inds[
+      xIndexes[
         Number.parseInt(rowNames[i].slice(2, rowNames[i].length - 1)) - 1
       ] = table[i][c.length + a.length];
     }
   }
   console.log(answer);
-  console.log(x_inds);
+  console.log(xIndexes);
 
   return {
-    x: x_inds,
+    x: xIndexes,
     max: answer,
   };
 }
