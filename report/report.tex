@@ -4,10 +4,36 @@
 \usepackage{fancyhdr}
 \usepackage{geometry}
 \usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{listings}
+\usepackage{xcolor}
 
 \geometry{left=3cm, right=3cm, top=2cm, bottom=2cm}
 
 \chead{Report of Programming Task 1 of the course \enquote{Introduction to Optimization} / Fall 2024}
+
+\lstdefinelanguage{js}{
+    keywords={typeof, new, true, false, type, const, let, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+    ndkeywords={class, export, number, string, never, void, boolean, throw, implements, import, this},
+    ndkeywordstyle=\color{darkgray}\bfseries,
+    identifierstyle=\color{black},
+    sensitive=false,
+    comment=[l]{//},
+    morecomment=[s]{/*}{*/},
+    stringstyle=\color{red}\ttfamily,
+    morestring=[b]',
+    morestring=[b]"
+}
+
+\lstset{
+    language=js,
+    commentstyle=\color{teal},
+    keywordstyle=\color{olive}\bfseries,
+    numberstyle=\tiny,
+    basicstyle=\small\ttfamily,
+    numbers=left,
+    breaklines=true,
+    mathescape=true,
+}
 
 \title{\textbf{Report 1}}
 \author{}
@@ -42,5 +68,10 @@
     \item \dots
 \end{itemize}
 
-\dots
+\textbf{Code:}
+
+\texttt{src/main.ts}:
+\begin{lstlisting}
+// ...
+\end{lstlisting}
 \end{document}
