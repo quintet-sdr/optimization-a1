@@ -47,6 +47,7 @@ export function maximize(
 
   prettyPrintWith(table, rowNames, colNames);
   let running = true;
+  let counter = 0;
   while (running) {
     // Find pivot column
     let pivot_col_val = 1e6;
@@ -111,6 +112,11 @@ export function maximize(
 
     if (table[0].filter((it) => it < 0).length === 0) {
       running = false;
+    }
+    counter += 1;
+    if(counter >= 5){
+      running = false;
+      console.log("LIMIT OF 5")
     }
   }
 
