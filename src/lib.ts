@@ -75,10 +75,13 @@ export function maximize(
       tableau[pivotRow][j] /= pivotElement;
     }
 
-    console.log("Pivot");
-    console.log(` - row: ${rowNames[pivotRow]}`);
-    console.log(` - column: ${colNames[pivotCol]}`);
-    console.log(` - element: ${pivotElement}`);
+    console.log(
+      "Pivot\n" +
+        ` - row: ${rowNames[pivotRow]}\n` +
+        ` - column: ${colNames[pivotCol]}\n` +
+        ` - element: ${pivotElement}`,
+    );
+
     console.log();
     console.log("Initially:");
     prettyPrintWith(tableau, rowNames, colNames, eps);
@@ -87,6 +90,7 @@ export function maximize(
 
     // Change the basis.
     rowNames[pivotCol] = colNames[pivotRow];
+
     console.log();
     console.log("After iteration:");
     prettyPrintWith(tableau, rowNames, colNames, eps);
