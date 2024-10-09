@@ -8,7 +8,7 @@ const left1 = maximize(
     [3, 2, 1],
     [5, 4, 3],
   ],
-  [100, 90, 120]
+  [100, 90, 120],
 );
 const right1: SimplexResult = { x: [10, 0, 15], max: 145 };
 assertEq(left1, right1);
@@ -21,7 +21,7 @@ const left2 = maximize(
     [2, 3, 5],
     [3, 4, 6],
   ],
-  [240, 160, 300]
+  [240, 160, 300],
 );
 const right2: SimplexResult = { x: [20, 0, 30], max: 470 };
 assertEq(left2, right2);
@@ -34,7 +34,7 @@ const left3 = maximize(
     [3, 4, 5],
     [4, 3, 2],
   ],
-  [300, 180, 150]
+  [300, 180, 150],
 );
 const right3: SimplexResult = { x: [10, 20, 0], max: 700 };
 assertEq(left3, right3);
@@ -47,7 +47,7 @@ const left4 = maximize(
     [2, 2, 5],
     [4, 1, 3],
   ],
-  [120, 150, 180]
+  [120, 150, 180],
 );
 const right4: SimplexResult = { x: [30, 0, 24], max: 246 };
 assertEq(left4, right4);
@@ -60,7 +60,7 @@ const left5 = maximize(
     [6, 4, 8],
     [5, 3, 3],
   ],
-  [360, 192, 180]
+  [360, 192, 180],
 );
 const right5: SimplexResult = { x: [0, 8, 20], max: 400 };
 assertEq(left5, right5);
