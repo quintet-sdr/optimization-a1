@@ -60,7 +60,7 @@ export function maximize(
   for (let i = 0; i <= a.length; i++) {
     for (let j = 0; j < table.length - 1; j++) {
       console.log(table[i][j])
-      if (table[i][j] < pivot_col_val && table[i][j] >= 0) {
+      if (table[i][j] < pivot_row_val && table[i][j] >= 0) {
         pivot_row_val = table[i][j];
       }
     }
