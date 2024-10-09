@@ -33,7 +33,7 @@ After cloning the repository, install dependencies.
 bun install
 ```
 
-To run the project, use:
+To run the project, use the command below.
 
 ```bash
 bun test
