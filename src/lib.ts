@@ -71,7 +71,7 @@ export function maximize(
 
     // Find the pivot row.
     let pivotRowValue = Infinity;
-    let pivotRowIndex = NaN;
+    let pivotRowIndex!: number;
     for (let i = 0; i < tableau.length; i += 1) {
       if (
         tableau[i][c.length + b.length + 1] < pivotRowValue &&
