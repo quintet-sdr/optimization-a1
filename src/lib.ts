@@ -52,9 +52,9 @@ export function maximize(
     console.log(`START OF ITERATION ${counter}`);
     // Find the pivot column.
     let pivotColValue = Infinity;
-    let pivotColIndex = NaN;
+    let pivotColIndex!: number;
 
-    for (let i = 0; i <= a.length; i += 1) {
+    for (let i = 0; i < tableau.length; i += 1) {
       for (let j = 0; j < c.length; j += 1) {
         if (tableau[i][j] < pivotColValue && j !== 0) {
           pivotColValue = tableau[i][j];
