@@ -17,10 +17,12 @@ export function maximize(
 ): SimplexResult | never {
   assertLengths(c, a, b);
 
-  const xStrings = c.map((_, i) => `x[${i + 1}]`);
-  const sStrings = a.map((_, i) => `s[${i + 1}]`);
+  const xStrings = c.map((_, i) => i + 1).map((i) => `x[${i}]`);
+  const sStrings = a.map((_, i) => i + 1).map((i) => `s[${i}]`);
 
-  console.log(`Function: ${xStrings.join(", ")} = ${coeffsToFn(c)}`);
+  console.log(
+    `Function: F(${xStrings.join(", ")}) = ${c.map((coeff, i) => `${coeff}*${xStrings[i]}`).join(" + ")}`,
+  );
 
   const rowNames = ["z", ...sStrings];
   const colNames = [...xStrings, ...sStrings, "Solution", "Ratio"];
@@ -182,10 +184,6 @@ function findPivotRow(tableau: number[][]): number {
   });
 
   return pivotRow;
-}
-
-function coeffsToFn(coeffs: number[]): string {
-  return coeffs.map((it, i) => `${it}*x[${i + 1}]`).join(" + ");
 }
 
 function assertLengths(c: number[], a: number[][], b: number[]): void | never {
