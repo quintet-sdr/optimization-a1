@@ -32,7 +32,7 @@ export function maximize(
 
   let tableau = buildTableau(c, a, b);
 
-  const tCols = c.length + a.length + 2;
+  const tableauColumns = c.length + a.length + 2;
 
   let iteration = 0;
   while (true) {
@@ -41,12 +41,13 @@ export function maximize(
 
     const pivotCol = findPivotCol(tableau, c);
     for (let i = 0; i < tableau.length; i += 1) {
-      tableau[i][tCols - 1] = tableau[i][tCols - 2] / tableau[i][pivotCol];
+      tableau[i][tableauColumns - 1] =
+        tableau[i][tableauColumns - 2] / tableau[i][pivotCol];
     }
 
     const pivotRow = findPivotRow(tableau);
     const pivotElement = tableau[pivotRow][pivotCol];
-    for (let j = 0; j < tCols - 1; j += 1) {
+    for (let j = 0; j < tableauColumns - 1; j += 1) {
       tableau[pivotRow][j] /= pivotElement;
     }
 
@@ -74,7 +75,7 @@ export function maximize(
   printHeading("Final Table");
   prettyPrintWith(tableau, rowNames, colNames, eps);
 
-  const answer = tableau[0][tCols - 2];
+  const answer = tableau[0][tableauColumns - 2];
   const xIndexes = arrayOf(c.length, () => 0);
 
   rowNames
@@ -85,7 +86,7 @@ export function maximize(
         const numPartStr = rowName.slice(1).slice(1, rowName.length - 2);
         const numPart = Number.parseInt(numPartStr);
 
-        xIndexes[numPart - 1] = tableau[i][tCols - 2];
+        xIndexes[numPart - 1] = tableau[i][tableauColumns - 2];
       }
     });
 
