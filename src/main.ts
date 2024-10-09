@@ -1,51 +1,42 @@
-type Constraint = {
-  coeffs: number[];
-  rhs: number;
-};
+export function maximize(
+  c: number[],
+  a: number[][],
+  b: number[],
+): number | never {
+  simplex_assert(c, a, b);
 
-export function maximize(coeffs: number[], constraints: Constraint[]): number {
   console.log("Starting the simplex algorithm.");
-  console.log(`Function: ${fnOfXs(coeffs.length)} = ${coeffsToFn(coeffs)}`);
+  console.log(`Function: ${fnOfXs(c.length)} = ${coeffsToFn(c)}`);
 
-  const xes = coeffs.map((_, i) => `x[${i + 1}]`);
-  const ses = constraints.map((_, i) => `s[${i + 1}]`);
+  const xes = c.map((_, i) => `x[${i + 1}]`);
+  const ses = a.map((_, i) => `s[${i + 1}]`);
 
   const rowNames = ["z", ...ses];
   const colNames = [...xes, ...ses, "Solution", "Ratio"];
 
-  constraints.forEach((c, i) => {
-    if (c.coeffs.length !== coeffs.length) {
-      throw new Error(
-        `numbers of coefficients don't match:\n` +
-          ` function: ${coeffs} (${coeffs.length})\n` +
-          ` constraint ${i + 1}: ${c.coeffs} (${c.coeffs.length})`,
-      );
-    }
-  });
-
   const table = arrayOf(constraints.length + 1, () =>
-    arrayOf(coeffs.length + constraints.length + 2, () => 0),
+    arrayOf(c.length + constraints.length + 2, () => 0),
   );
 
   prettyPrintWith(table, rowNames, colNames);
   console.log();
 
   // Z-row
-  for (let i = 0; i < coeffs.length; i++) {
-    table[0][i] = -1 * coeffs[i];
+  for (let i = 0; i < c.length; i++) {
+    table[0][i] = -1 * c[i];
   }
 
   for (let i = 0; i < constraints.length; i += 1) {
     // Xes
-    for (let j = 0; j < coeffs.length; j += 1) {
-      table[i + 1][j] = constraints[i].coeffs[j];
+    for (let j = 0; j < c.length; j += 1) {
+      table[i + 1][j] = constraints[i].a[j];
     }
 
     // Ses
-    table[i + 1][coeffs.length + i] = 1;
+    table[i + 1][c.length + i] = 1;
 
     // Solution-row
-    table[i + 1][coeffs.length + constraints.length] = constraints[i].rhs;
+    table[i + 1][c.length + constraints.length] = constraints[i].b;
   }
 
   prettyPrintWith(table, rowNames, colNames);
@@ -107,4 +98,24 @@ function prettyPrint(tableau: (number | string)[][]) {
       ),
     ),
   );
+}
+
+function simplex_assert(c: number[], a: number[][], b: number[]): void | never {
+  if (a.length !== b.length) {
+    throw new Error(
+      `numbers of constraints and right-hand sides don't match':\n` +
+        ` constraints: ${a} (${a.length})` +
+        ` right-hand sides: ${b} (${b.length})\n`,
+    );
+  }
+
+  a.forEach((row, i) => {
+    if (row.length !== c.length) {
+      throw new Error(
+        `numbers of coefficients don't match:\n` +
+          ` function: ${c} (${c.length})\n` +
+          ` constraint ${i + 1}: ${row} (${row.length})`,
+      );
+    }
+  });
 }
