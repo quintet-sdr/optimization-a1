@@ -4,9 +4,9 @@ export type SimplexResult = {
 };
 
 export function maximize(
-  c: number[],
-  a: number[][],
-  b: number[],
+  c: number[], // coefficitents of objective function
+  a: number[][], // coefficients of constraint functions
+  b: number[] // right-hand side numbers,
 ): SimplexResult | never {
   simplex_assert(c, a, b);
 
