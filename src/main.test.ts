@@ -13,9 +13,9 @@ test("lab-2-problem-1", () => {
     ],
     [135, 260, 220, 360],
   );
-  // const right: SimplexResult = {};
-  //
-  // assertEq(left, right);
+  const right: SimplexResult = { x: [0, 30, 30], max: 7800 };
+
+  assertEq(left, right);
 });
 
 test("lab-3-problem-1", () => {
