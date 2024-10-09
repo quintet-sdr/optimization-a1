@@ -24,7 +24,7 @@ export function maximize(
   const sStrings = a.map((_, i) => i + 1).map((i) => `s[${i}]`);
 
   console.log(
-    `Function: F(${xStrings.join(", ")}) = ${c.map((coeff, i) => `${coeff}*${xStrings[i]}`).join(" + ")}`,
+    `Function: F(${xStrings.join(", ")}) = ${c.map((coeff, i) => `${coeff}${xStrings[i]}`).join(" + ")}`,
   );
 
   const rowNames = ["z", ...sStrings];
