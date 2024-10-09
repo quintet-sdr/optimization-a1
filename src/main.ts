@@ -83,7 +83,7 @@ export function maximize(
     console.log(pivot_row_val, pivot_row_ind);
 
     //Find pivot element
-    let pivot_elem = table[pivot_col_ind][pivot_row_ind];
+    let pivot_elem = table[pivot_row_ind][pivot_col_ind];
     console.log("Pivot element: ", pivot_elem);
 
     //Divide pivot row to pivot element
