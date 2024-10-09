@@ -11,7 +11,6 @@ export function maximize(
 ): SimplexResult | never {
   simplexAssert(c, a, b);
 
-  console.log("Starting the simplex algorithm.");
   console.log(`Function: ${fnOfXs(c.length)} = ${coeffsToFn(c)}`);
 
   const xStrings = c.map((_, i) => `x[${i + 1}]`);
@@ -23,9 +22,6 @@ export function maximize(
   let tableau = arrayOf(1 + a.length, () =>
     arrayOf(c.length + a.length + 2, () => 0),
   );
-
-  prettyPrintWith(tableau, rowNames, colNames, eps);
-  console.log();
 
   // Z-row
   for (let i = 0; i < c.length; i++) {
