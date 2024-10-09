@@ -9,7 +9,7 @@ export function maximize(
   b: number[], // right-hand side numbers,
   eps: number,
 ): SimplexResult | never {
-  simplex_assert(c, a, b);
+  simplexAssert(c, a, b);
 
   console.log("Starting the simplex algorithm.");
   console.log(`Function: ${fnOfXs(c.length)} = ${coeffsToFn(c)}`);
@@ -48,7 +48,8 @@ export function maximize(
   let running = true;
   let counter = 0;
   while (running) {
-    console.log("\nSTART OF ITERATION ", counter);
+    console.log();
+    console.log("START OF ITERATION ", counter);
     // Find pivot column
     let pivotColValue = 1e6;
     let pivotColIndex = -1;
@@ -117,7 +118,8 @@ export function maximize(
 
     // Changing basis
     rowNames[pivotColIndex] = colNames[pivotRowIndex];
-    console.log("\nTABLE AFTER ITERATION:");
+    console.log();
+    console.log("TABLE AFTER ITERATION:");
     prettyPrintWith(table, rowNames, colNames, eps);
 
     if (table[0].filter((it) => it < 0).length === 0) {
@@ -210,7 +212,7 @@ function prettyPrint(tableau: string[][]) {
   );
 }
 
-function simplex_assert(c: number[], a: number[][], b: number[]): void | never {
+function simplexAssert(c: number[], a: number[][], b: number[]): void | never {
   if (a.length !== b.length) {
     throw new Error(
       `numbers of constraints and right-hand sides don't match':\n` +
