@@ -65,8 +65,8 @@ export function maximize(
 
     // Compute the ratio.
     for (let i = 0; i < tableau.length; i += 1) {
-      tableau[i][c.length + b.length + 1] =
-        tableau[i][c.length + b.length] / tableau[i][pivotColIndex];
+      tableau[i][tableau[0].length - 1] =
+        tableau[i][tableau[0].length - 2] / tableau[i][pivotColIndex];
     }
 
     // Find the pivot row.
@@ -74,10 +74,10 @@ export function maximize(
     let pivotRowIndex!: number;
     for (let i = 0; i < tableau.length; i += 1) {
       if (
-        tableau[i][c.length + b.length + 1] < pivotRowValue &&
-        tableau[i][c.length + b.length + 1] > 0
+        tableau[i][tableau[0].length - 1] < pivotRowValue &&
+        tableau[i][tableau[0].length - 1] > 0
       ) {
-        pivotRowValue = tableau[i][c.length + b.length + 1];
+        pivotRowValue = tableau[i][tableau[0].length - 1];
         pivotRowIndex = i;
       }
     }
