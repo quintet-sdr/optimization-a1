@@ -1,7 +1,7 @@
 export function maximize(
   c: number[],
   a: number[][],
-  b: number[],
+  b: number[]
 ): number | never {
   simplex_assert(c, a, b);
 
@@ -15,7 +15,7 @@ export function maximize(
   const colNames = [...xes, ...ses, "Solution", "Ratio"];
 
   const table = arrayOf(a.length + 1, () =>
-    arrayOf(c.length + a.length + 2, () => 0),
+    arrayOf(c.length + a.length + 2, () => 0)
   );
 
   prettyPrintWith(table, rowNames, colNames);
@@ -41,6 +41,15 @@ export function maximize(
   }
 
   prettyPrintWith(table, rowNames, colNames);
+
+  let pivot_col_val = 1e6;
+  for (let i = 0; i <= a.length; i++) {
+    for (let j = 0; j < c.length; j++) {
+      if (table[i][j] < pivot_col_val) {
+        pivot_col_val = table[i][j];
+      }
+    }
+  }
 
   return 42;
 }
@@ -71,7 +80,7 @@ function coeffsToFn(coeffs: number[]): string {
 function prettyPrintWith(
   tableau: number[][],
   rowNames: string[],
-  colNames: string[],
+  colNames: string[]
 ): void {
   prettyPrint([
     ["Basic", ...colNames],
@@ -85,8 +94,8 @@ function prettyPrint(tableau: (number | string)[][]) {
     colMaxes.push(
       Math.max.apply(
         null,
-        tableau.map((row) => row[i]).map((n) => n.toString().length),
-      ),
+        tableau.map((row) => row[i]).map((n) => n.toString().length)
+      )
     );
   }
 
@@ -95,9 +104,11 @@ function prettyPrint(tableau: (number | string)[][]) {
       null,
       row.map(
         (val, j) =>
-          `${new Array(colMaxes[j] - val.toString().length + 1).join(" ")}${val}  `,
-      ),
-    ),
+          `${new Array(colMaxes[j] - val.toString().length + 1).join(
+            " "
+          )}${val}  `
+      )
+    )
   );
 }
 
@@ -106,7 +117,7 @@ function simplex_assert(c: number[], a: number[][], b: number[]): void | never {
     throw new Error(
       `numbers of constraints and right-hand sides don't match':\n` +
         ` constraints: ${a} (${a.length})` +
-        ` right-hand sides: ${b} (${b.length})\n`,
+        ` right-hand sides: ${b} (${b.length})\n`
     );
   }
 
@@ -115,7 +126,7 @@ function simplex_assert(c: number[], a: number[][], b: number[]): void | never {
       throw new Error(
         `numbers of coefficients don't match:\n` +
           ` function: ${c} (${c.length})\n` +
-          ` constraint ${i + 1}: ${row} (${row.length})`,
+          ` constraint ${i + 1}: ${row} (${row.length})`
       );
     }
   });
