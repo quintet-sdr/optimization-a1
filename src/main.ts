@@ -94,7 +94,7 @@ export function maximize(
     for (let j = 0; j <= c.length + a.length; j++) {
       if (i != pivot_row_ind) {
         table[i][j] =
-          table[i][j] - table[i][pivot_col_ind] * [pivot_row_ind][j];
+          table[i][j] - table[i][pivot_col_ind] * table[pivot_row_ind][j];
       }
     }
   }
