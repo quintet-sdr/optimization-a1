@@ -109,10 +109,8 @@ export function maximize(
     rowNames[pivot_col_ind] = colNames[pivot_row_ind];
     prettyPrintWith(table, rowNames, colNames);
 
-    for (let i = 0; i <= c.length + b.length; i++) {
-      if (table[0][i] < 0) {
-        running = false;
-      }
+    if(table[0].filter((it) => it < 0).length === 0){
+      running = false;
     }
   }
   return {
