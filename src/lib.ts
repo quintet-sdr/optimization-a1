@@ -33,20 +33,7 @@ export function maximize(
   const tRows = 1 + a.length;
   const tCols = c.length + a.length + 2;
 
-  let tableau = arrayOf(tRows, () => arrayOf(tCols, () => 0));
-
-  for (let i = 0; 1 + i < tRows; i += 1) {
-    for (let j = 0; j < c.length; j += 1) {
-      // Z-row
-      tableau[0][j] = -1 * c[j];
-      // X-es
-      tableau[1 + i][j] = a[i][j];
-    }
-    // S-es
-    tableau[1 + i][c.length + i] = 1;
-    // Solution row
-    tableau[1 + i][tCols - 2] = b[i];
-  }
+  let tableau = initialTableau(c, a, b);
 
   let iteration = 0;
   while (true) {
@@ -122,6 +109,28 @@ export function maximize(
   console.log(`Maximum value: ${result.max}`);
 
   return result;
+}
+
+function initialTableau(c: number[], a: number[][], b: number[]): number[][] {
+  const tRows = 1 + a.length;
+  const tCols = c.length + a.length + 2;
+
+  const tableau = arrayOf(tRows, () => arrayOf(tCols, () => 0));
+
+  for (let i = 0; 1 + i < tRows; i += 1) {
+    for (let j = 0; j < c.length; j += 1) {
+      // Z-row
+      tableau[0][j] = -1 * c[j];
+      // X-es
+      tableau[1 + i][j] = a[i][j];
+    }
+    // S-es
+    tableau[1 + i][c.length + i] = 1;
+    // Solution row
+    tableau[1 + i][tCols - 2] = b[i];
+  }
+
+  return tableau;
 }
 
 function crissCrossed(
