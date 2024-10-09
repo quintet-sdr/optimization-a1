@@ -10,8 +10,8 @@ export function prettyPrintWith(
 ): void {
   prettyPrint([
     ["Basic", ...colNames],
-    ...tableau.map((row, i) => [
-      rowNames[i],
+    ...tableau.map((row, j) => [
+      rowNames[j],
       ...row.map((num) => num.toFixed(precision)),
     ]),
   ]);
@@ -24,11 +24,11 @@ export function printHeading(text: string): void {
 
 function prettyPrint(tableau: string[][]) {
   let colMaxes = [];
-  for (let i = 0; i < tableau[0].length; i += 1) {
+  for (let j = 0; j < tableau[0].length; j += 1) {
     colMaxes.push(
       Math.max.apply(
         null,
-        tableau.map((row) => row[i]).map((n) => n.length),
+        tableau.map((row) => row[j]).map((n) => n.length),
       ),
     );
   }
