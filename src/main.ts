@@ -120,7 +120,7 @@ export function maximize(
   let answer = table[0][c.length + a.length + 1];
   let x_inds = arrayOf(c.length, () => 0);
   for (let i = 0; i <= rowNames.length; i++) {
-    if (rowNames[i].startsWith("x")) {
+    if (rowNames[i][0] === "x") {
       x_inds[Number.parseInt(rowNames[i].slice(1)) - 1] = table[i][c.length + a.length + 1];
     }
   }
