@@ -71,16 +71,7 @@ export function maximize(
       tableau[i][tCols - 1] = tableau[i][tCols - 2] / tableau[i][pivotCol];
     }
 
-    // Find the pivot row.
-    let pivotRowValue = Infinity;
-    let pivotRow!: number;
-
-    tableau.forEach((row, i) => {
-      if (row[tCols - 1] < pivotRowValue && row[tCols - 1] > 0) {
-        pivotRowValue = row[tCols - 1];
-        pivotRow = i;
-      }
-    });
+    const pivotRow = findPivotRow(tableau);
 
     // Find the pivot element.
     const pivotElement = tableau[pivotRow][pivotCol];
@@ -93,7 +84,9 @@ export function maximize(
     console.log(
       `Pivot column element: ${colNames[pivotCol]} = ${pivotColValue}`,
     );
-    console.log(`Pivot row element: ${rowNames[pivotRow]} = ${pivotRowValue}`);
+    console.log(
+      `Pivot row element: ${rowNames[pivotRow]} = ${tableau[pivotRow][tCols - 1]}`,
+    );
     console.log(`Pivot element: ${pivotElement}`);
     console.log();
     console.log("INITIAL TABLE:");
@@ -161,6 +154,23 @@ function crissCrossed(
   }
 
   return newTableau;
+}
+
+function findPivotRow(tableau: number[][]): number {
+  let pivotRowValue = Infinity;
+  let pivotRow!: number;
+
+  tableau.forEach((row, i) => {
+    if (
+      row[tableau[0].length - 1] < pivotRowValue &&
+      row[tableau[0].length - 1] > 0
+    ) {
+      pivotRowValue = row[tableau[0].length - 1];
+      pivotRow = i;
+    }
+  });
+
+  return pivotRow;
 }
 
 function coeffsToFn(coeffs: number[]): string {
