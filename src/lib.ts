@@ -32,17 +32,17 @@ export function maximize(
     tableau[0][i] = -1 * c[i];
   }
 
-  for (let i = 0; i < a.length; i += 1) {
+  for (let i = 1; i < tableau.length; i += 1) {
     // X-es
     for (let j = 0; j < c.length; j += 1) {
-      tableau[i + 1][j] = a[i][j];
+      tableau[i][j] = a[i - 1][j];
     }
 
     // S-es
-    tableau[i + 1][c.length + i] = 1;
+    tableau[i][c.length + i - 1] = 1;
 
     // Solution row
-    tableau[i + 1][c.length + a.length] = b[i];
+    tableau[i][tableau[0].length - 2] = b[i - 1];
   }
 
   let running = true;
