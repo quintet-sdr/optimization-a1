@@ -34,15 +34,15 @@ export function maximize(
 
   // BROKEN
   for (let i = 0; i < a.length; i += 1) {
-    // Xes
+    // X-es
     for (let j = 0; j < c.length; j += 1) {
       table[i + 1][j] = a[i][j];
     }
 
-    // Ses
+    // S-es
     table[i + 1][c.length + i] = 1;
 
-    // Solution-row
+    // Solution row
     table[i + 1][c.length + a.length] = b[i];
   }
   let running = true;
