@@ -114,9 +114,9 @@ export function maximize(
       running = false;
     }
     counter += 1;
-    if(counter >= 10){
+    if (counter >= 10) {
       running = false;
-      console.log("LIMIT OF 10")
+      console.log("LIMIT OF 10");
     }
   }
 
@@ -128,12 +128,13 @@ export function maximize(
   console.log(rowNames);
   for (let i = 1; i < rowNames.length; i++) {
     if (rowNames[i][0] === "x") {
-      x_inds[Number.parseInt(rowNames[i].slice(2, rowNames[i].length - 1)) - 1] = table[i][c.length + a.length];
+      x_inds[
+        Number.parseInt(rowNames[i].slice(2, rowNames[i].length - 1)) - 1
+      ] = table[i][c.length + a.length];
     }
   }
   console.log(answer);
-  console.log(x_inds)
-
+  console.log(x_inds);
 
   return {
     x: x_inds,
