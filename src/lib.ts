@@ -66,7 +66,7 @@ export function maximize(
         table[i][c.length + b.length] / table[i][pivot_col_ind];
     }
 
-    //Find pivot row
+    // Find pivot row
     let pivot_row_val = 1e6;
     let pivot_row_ind = -1;
     for (let i = 0; i <= a.length; i++) {
@@ -79,10 +79,10 @@ export function maximize(
       }
     }
 
-    //Find pivot element
+    // Find pivot element
     let pivot_elem = table[pivot_row_ind][pivot_col_ind];
 
-    //Divide pivot row to pivot element
+    // Divide pivot row to pivot element
     for (let j = 0; j <= c.length + b.length; j++) {
       table[pivot_row_ind][j] = table[pivot_row_ind][j] / pivot_elem;
     }
