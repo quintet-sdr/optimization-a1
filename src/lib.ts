@@ -55,12 +55,9 @@ export function maximize(
     const pivotElement = tableau[pivotRow][pivotCol];
     tableau[pivotRow] = tableau[pivotRow].map((it) => it / pivotElement);
 
-    console.log(
-      "Pivot\n" +
-        ` - row: ${rowNames[pivotRow]}\n` +
-        ` - column: ${colNames[pivotCol]}\n` +
-        ` - element: ${pivotElement}`,
-    );
+    console.log(`Pivot row: ${rowNames[pivotRow]}`);
+    console.log(`Pivot column: ${colNames[pivotCol]}`);
+    console.log(`Pivot element: ${pivotElement}`);
 
     console.log("\n" + "Initially:");
     prettyPrintWith(tableau, rowNames, colNames, eps);
