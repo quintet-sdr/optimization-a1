@@ -135,8 +135,8 @@ export function maximize(
     }
   });
 
-  console.log(answer);
   console.log(xIndexes);
+  console.log(answer);
 
   return {
     x: xIndexes,
