@@ -99,18 +99,18 @@ export function maximize(
     console.log("INITIAL TABLE:");
     prettyPrintWith(tableau, rowNames, colNames, eps);
 
-    const tableTmp = tableau.map((row) => row.slice());
+    const tableauTmp = tableau.map((row) => row.slice());
 
     for (let i = 0; i < tRows; i += 1) {
       for (let j = 0; j < tCols - 1; j += 1) {
         if (i != pivotRowIndex) {
-          tableTmp[i][j] =
+          tableauTmp[i][j] =
             tableau[i][j] -
             tableau[i][pivotColIndex] * tableau[pivotRowIndex][j];
         }
       }
     }
-    tableau = tableTmp;
+    tableau = tableauTmp;
 
     // Change the basis.
     rowNames[pivotColIndex] = colNames[pivotRowIndex];
