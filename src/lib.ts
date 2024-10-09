@@ -38,9 +38,7 @@ export function maximize(
   while (true) {
     iteration += 1;
 
-    console.log();
-    printHeading(`Iteration ${iteration}`);
-    console.log();
+    printHeading("\n" + `Iteration ${iteration}` + "\n");
 
     const pivotCol = findPivotCol(tableau, c);
 
@@ -51,7 +49,6 @@ export function maximize(
     const pivotRow = findPivotRow(tableau);
 
     const pivotElement = tableau[pivotRow][pivotCol];
-
     for (let j = 0; j < tCols - 1; j += 1) {
       tableau[pivotRow][j] /= pivotElement;
     }
@@ -78,9 +75,7 @@ export function maximize(
     }
   }
 
-  console.log();
-  printHeading("Final Table");
-  console.log();
+  printHeading("\n" + "Final Table" + "\n");
   prettyPrintWith(tableau, rowNames, colNames, eps);
 
   const answer = tableau[0][tCols - 2];
