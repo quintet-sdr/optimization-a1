@@ -73,15 +73,16 @@ export function maximize(
     // Find the pivot row.
     let pivotRowValue = Infinity;
     let pivotRowIndex!: number;
-    for (let i = 0; i < tableau.length; i += 1) {
+
+    tableau.forEach((row, i) => {
       if (
-        tableau[i][tableau[0].length - 1] < pivotRowValue &&
-        tableau[i][tableau[0].length - 1] > 0
+        row[tableau[0].length - 1] < pivotRowValue &&
+        row[tableau[0].length - 1] > 0
       ) {
-        pivotRowValue = tableau[i][tableau[0].length - 1];
+        pivotRowValue = row[tableau[0].length - 1];
         pivotRowIndex = i;
       }
-    }
+    });
 
     // Find the pivot element.
     const pivotElement = tableau[pivotRowIndex][pivotColIndex];
