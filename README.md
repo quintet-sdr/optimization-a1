@@ -6,9 +6,9 @@
 
 > **Pay attention!**
 >
-> We solved this assignment, we used Bun with TypeScript. The project will not
-> work on NodeJS because we used the built-in testing library unavailable on
-> Node.
+> We solved this assignment using TypeScript with the Bun runtime. The code will
+> not work with Node.js because we used the built-in testing library,
+> unavailable on Node.
 
 ## Installation
 
@@ -27,7 +27,7 @@ For Windows:
 powershell -c "irm bun.sh/install.ps1|iex"
 ```
 
-## Local Running
+## Run Locally
 
 After cloning the repository, install dependencies.
 
