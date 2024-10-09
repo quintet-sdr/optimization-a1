@@ -53,18 +53,7 @@ export function maximize(
     console.log();
     console.log(`START OF ITERATION ${counter}`);
 
-    // Find the pivot column.
-    let pivotColValue = Infinity;
-    let pivotCol!: number;
-
-    for (let i = 0; i < tRows; i += 1) {
-      for (let j = 0; j < c.length; j += 1) {
-        if (tableau[i][j] < pivotColValue && j !== 0) {
-          pivotColValue = tableau[i][j];
-          pivotCol = j;
-        }
-      }
-    }
+    const pivotCol = findPivotCol(tableau, c);
 
     // Compute the ratio.
     for (let i = 0; i < tRows; i += 1) {
@@ -73,21 +62,16 @@ export function maximize(
 
     const pivotRow = findPivotRow(tableau);
 
-    // Find the pivot element.
     const pivotElement = tableau[pivotRow][pivotCol];
 
-    // Divide the pivot row by the pivot element.
     for (let j = 0; j < tCols - 1; j += 1) {
       tableau[pivotRow][j] /= pivotElement;
     }
 
-    console.log(
-      `Pivot column element: ${colNames[pivotCol]} = ${pivotColValue}`,
-    );
-    console.log(
-      `Pivot row element: ${rowNames[pivotRow]} = ${tableau[pivotRow][tCols - 1]}`,
-    );
-    console.log(`Pivot element: ${pivotElement}`);
+    console.log("Pivot");
+    console.log(` - column: ${colNames[pivotCol]}`);
+    console.log(` - row: ${rowNames[pivotRow]}`);
+    console.log(` - element: ${pivotElement}`);
     console.log();
     console.log("INITIAL TABLE:");
     prettyPrintWith(tableau, rowNames, colNames, eps);
@@ -154,6 +138,22 @@ function crissCrossed(
   }
 
   return newTableau;
+}
+
+function findPivotCol(tableau: number[][], c: number[]): number {
+  let pivotColValue = Infinity;
+  let pivotCol!: number;
+
+  for (let i = 0; i < tableau.length; i += 1) {
+    for (let j = 0; j < c.length; j += 1) {
+      if (tableau[i][j] < pivotColValue && j !== 0) {
+        pivotColValue = tableau[i][j];
+        pivotCol = j;
+      }
+    }
+  }
+
+  return pivotCol;
 }
 
 function findPivotRow(tableau: number[][]): number {
