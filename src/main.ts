@@ -114,9 +114,9 @@ export function maximize(
       running = false;
     }
     counter += 1;
-    if(counter >= 5){
+    if(counter >= 10){
       running = false;
-      console.log("LIMIT OF 5")
+      console.log("LIMIT OF 10")
     }
   }
 
