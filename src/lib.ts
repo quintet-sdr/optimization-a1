@@ -64,7 +64,7 @@ export function maximize(
     }
 
     // Compute the ratio.
-    for (let i = 0; i <= a.length; i += 1) {
+    for (let i = 0; i < tableau.length; i += 1) {
       tableau[i][c.length + b.length + 1] =
         tableau[i][c.length + b.length] / tableau[i][pivotColIndex];
     }
@@ -72,7 +72,7 @@ export function maximize(
     // Find the pivot row.
     let pivotRowValue = Infinity;
     let pivotRowIndex = NaN;
-    for (let i = 0; i <= a.length; i += 1) {
+    for (let i = 0; i < tableau.length; i += 1) {
       if (
         tableau[i][c.length + b.length + 1] < pivotRowValue &&
         tableau[i][c.length + b.length + 1] > 0
@@ -103,8 +103,8 @@ export function maximize(
     // Set the pivot column to zeros.
     const tableTmp = tableau.map((row) => row.slice());
 
-    for (let i = 0; i <= a.length; i += 1) {
-      for (let j = 0; j <= c.length + a.length; j += 1) {
+    for (let i = 0; i < tableau.length; i += 1) {
+      for (let j = 0; j < tableau.length - 1; j += 1) {
         if (i != pivotRowIndex) {
           tableTmp[i][j] =
             tableau[i][j] -
