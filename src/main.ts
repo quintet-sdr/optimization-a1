@@ -54,7 +54,7 @@ export function maximize(
     let pivot_col_ind = -1;
     for (let i = 0; i <= a.length; i++) {
       for (let j = 0; j < c.length; j++) {
-        if (table[i][j] < pivot_col_val) {
+        if (table[i][j] < pivot_col_val && j !== 0) {
           pivot_col_val = table[i][j];
           pivot_col_ind = j;
         }
@@ -75,7 +75,7 @@ export function maximize(
     for (let i = 0; i <= a.length; i++) {
       if (
         table[i][c.length + b.length + 1] < pivot_row_val &&
-        table[i][c.length + b.length + 1] > 0 && i !== 0
+        table[i][c.length + b.length + 1] > 0
       ) {
         pivot_row_val = table[i][c.length + b.length + 1];
         pivot_row_ind = i;
