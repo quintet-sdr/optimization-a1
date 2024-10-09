@@ -49,7 +49,7 @@ export function maximize(
   let running = true;
   let counter = 0;
   while (running) {
-    console.log("END OF ITERATION ", counter);
+    console.log("START OF ITERATION ", counter);
     // Find pivot column
     let pivot_col_val = 1e6;
     let pivot_col_ind = -1;
