@@ -25,16 +25,17 @@ export function maximize(
   const rowNames = ["z", ...sStrings];
   const colNames = [...xStrings, ...sStrings, "Solution", "Ratio"];
 
-  let tableau = arrayOf(1 + a.length, () =>
-    arrayOf(c.length + a.length + 2, () => 0),
-  );
+  const tableauRows = 1 + a.length;
+  const tableauCols = c.length + a.length + 2;
+
+  let tableau = arrayOf(tableauRows, () => arrayOf(tableauCols, () => 0));
 
   // Z-row
   for (let i = 0; i < c.length; i += 1) {
     tableau[0][i] = -1 * c[i];
   }
 
-  for (let i = 1; i < tableau.length; i += 1) {
+  for (let i = 1; i < tableauRows; i += 1) {
     // X-es
     for (let j = 0; j < c.length; j += 1) {
       tableau[i][j] = a[i - 1][j];
@@ -44,7 +45,7 @@ export function maximize(
     tableau[i][c.length + i - 1] = 1;
 
     // Solution row
-    tableau[i][tableau[0].length - 2] = b[i - 1];
+    tableau[i][tableauCols - 2] = b[i - 1];
   }
 
   let counter = 0;
@@ -55,7 +56,7 @@ export function maximize(
     let pivotColValue = Infinity;
     let pivotColIndex!: number;
 
-    for (let i = 0; i < tableau.length; i += 1) {
+    for (let i = 0; i < tableauRows; i += 1) {
       for (let j = 0; j < c.length; j += 1) {
         if (tableau[i][j] < pivotColValue && j !== 0) {
           pivotColValue = tableau[i][j];
@@ -65,9 +66,9 @@ export function maximize(
     }
 
     // Compute the ratio.
-    for (let i = 0; i < tableau.length; i += 1) {
-      tableau[i][tableau[0].length - 1] =
-        tableau[i][tableau[0].length - 2] / tableau[i][pivotColIndex];
+    for (let i = 0; i < tableauRows; i += 1) {
+      tableau[i][tableauCols - 1] =
+        tableau[i][tableauCols - 2] / tableau[i][pivotColIndex];
     }
 
     // Find the pivot row.
@@ -75,11 +76,8 @@ export function maximize(
     let pivotRowIndex!: number;
 
     tableau.forEach((row, i) => {
-      if (
-        row[tableau[0].length - 1] < pivotRowValue &&
-        row[tableau[0].length - 1] > 0
-      ) {
-        pivotRowValue = row[tableau[0].length - 1];
+      if (row[tableauCols - 1] < pivotRowValue && row[tableauCols - 1] > 0) {
+        pivotRowValue = row[tableauCols - 1];
         pivotRowIndex = i;
       }
     });
@@ -88,7 +86,7 @@ export function maximize(
     const pivotElement = tableau[pivotRowIndex][pivotColIndex];
 
     // Divide the pivot row by the pivot element.
-    for (let j = 0; j < tableau[0].length - 1; j += 1) {
+    for (let j = 0; j < tableauCols - 1; j += 1) {
       tableau[pivotRowIndex][j] /= pivotElement;
     }
     console.log(
@@ -105,8 +103,8 @@ export function maximize(
     // Set the pivot column to zeros.
     const tableTmp = tableau.map((row) => row.slice());
 
-    for (let i = 0; i < tableau.length; i += 1) {
-      for (let j = 0; j < tableau[0].length - 1; j += 1) {
+    for (let i = 0; i < tableauRows; i += 1) {
+      for (let j = 0; j < tableauCols - 1; j += 1) {
         if (i != pivotRowIndex) {
           tableTmp[i][j] =
             tableau[i][j] -
@@ -135,7 +133,7 @@ export function maximize(
   console.log("Final table:");
   prettyPrintWith(tableau, rowNames, colNames, eps);
 
-  const answer = tableau[0][c.length + a.length];
+  const answer = tableau[0][tableauCols - 2];
   const xIndexes = arrayOf(c.length, () => 0);
   console.log(rowNames);
 
