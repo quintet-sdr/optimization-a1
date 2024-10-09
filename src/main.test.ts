@@ -77,6 +77,22 @@ test("problem-5", () => {
   assertEq(left, right);
 });
 
+test("lab-3-problem-3", () => {
+  console.log();
+  const left = maximize(
+    [2, -2, 6],
+    [
+      [2, 1, -2],
+      [1, 2, 4],
+      [1, -1, 2],
+    ],
+    [24, 23, 10],
+  );
+  const right: SimplexResult = { x: [0, 3 / 4, 43 / 8], max: -123 / 4 };
+
+  assertEq(left, right);
+});
+
 function assertEq(left: SimplexResult, right: SimplexResult): void | never {
   const PRECISION: number = 3;
 
