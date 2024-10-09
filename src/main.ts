@@ -72,6 +72,7 @@ export function maximize(
     }
   }
   console.log(pivot_row_val, pivot_row_ind);
+  console.log("Pivot element: ", table[pivot_col_ind][pivot_row_ind])
   
 
   
