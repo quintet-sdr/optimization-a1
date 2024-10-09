@@ -32,7 +32,6 @@ export function maximize(
     table[0][i] = -1 * c[i];
   }
 
-  // BROKEN
   for (let i = 0; i < a.length; i += 1) {
     // X-es
     for (let j = 0; j < c.length; j += 1) {
