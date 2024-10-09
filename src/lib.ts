@@ -80,7 +80,7 @@ export function maximize(
     console.log(` - column: ${colNames[pivotCol]}`);
     console.log(` - element: ${pivotElement}`);
     console.log();
-    console.log("[ Initially ]");
+    console.log("Initially:");
     prettyPrintWith(tableau, rowNames, colNames, eps);
 
     tableau = crissCrossed(tableau, pivotRow, pivotCol);
@@ -88,7 +88,7 @@ export function maximize(
     // Change the basis.
     rowNames[pivotCol] = colNames[pivotRow];
     console.log();
-    console.log("[ After iteration ]");
+    console.log("After iteration:");
     prettyPrintWith(tableau, rowNames, colNames, eps);
 
     if (tableau[0].filter((it) => it < 0).length === 0) {
