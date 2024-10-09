@@ -14,8 +14,8 @@ export function maximize(
   const rowNames = ["z", ...ses];
   const colNames = [...xes, ...ses, "Solution", "Ratio"];
 
-  const table = arrayOf(constraints.length + 1, () =>
-    arrayOf(c.length + constraints.length + 2, () => 0),
+  const table = arrayOf(a.length + 1, () =>
+    arrayOf(c.length + a.length + 2, () => 0),
   );
 
   prettyPrintWith(table, rowNames, colNames);
@@ -26,17 +26,18 @@ export function maximize(
     table[0][i] = -1 * c[i];
   }
 
-  for (let i = 0; i < constraints.length; i += 1) {
+  // BROKEN
+  for (let i = 0; i < a.length; i += 1) {
     // Xes
     for (let j = 0; j < c.length; j += 1) {
-      table[i + 1][j] = constraints[i].a[j];
+      table[i + 1][j] = a[i][j];
     }
 
     // Ses
     table[i + 1][c.length + i] = 1;
 
     // Solution-row
-    table[i + 1][c.length + constraints.length] = constraints[i].b;
+    table[i + 1][c.length + a.length] = b[i];
   }
 
   prettyPrintWith(table, rowNames, colNames);
