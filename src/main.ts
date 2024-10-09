@@ -19,7 +19,7 @@ export function maximize(
   const rowNames = ["z", ...ses];
   const colNames = [...xes, ...ses, "Solution", "Ratio"];
 
-  const table = arrayOf(a.length + 1, () =>
+  let table = arrayOf(a.length + 1, () =>
     arrayOf(c.length + a.length + 2, () => 0)
   );
 
@@ -90,7 +90,7 @@ export function maximize(
   }
   prettyPrintWith(table, rowNames, colNames);
   console.log("");
-  let temp_table = table.map((row) => [...row]);
+  let temp_table = table.map((row) => row.slice());
   for (let i = 0; i <= a.length; i++) {
     for (let j = 0; j <= c.length + a.length; j++) {
       if (i != pivot_row_ind) {
@@ -99,7 +99,8 @@ export function maximize(
       }
     }
   }
-  prettyPrintWith(temp_table, rowNames, colNames);
+  table = temp_table;
+  prettyPrintWith(table, rowNames, colNames);
 
   return {
     x: [],
