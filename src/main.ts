@@ -60,7 +60,7 @@ export function maximize(
   console.log(pivot_col_val, pivot_col_ind);
   
   for (let i = 0; i <= a.length; i++){
-    table[i][table.length - 1] = table[i][table.length - 2] / table[i][pivot_col_ind];
+    table[i][c.length + b.length + 1] = table[i][c.length + b.length] / table[i][pivot_col_ind];
   }
   prettyPrint(table);
   let pivot_row_val = 1e6;
