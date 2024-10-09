@@ -50,8 +50,8 @@ export function maximize(
   }
 
   // Solution row
-  for (let i = 1; i < tRows; i += 1) {
-    tableau[i][tCols - 2] = b[i - 1];
+  for (let i = 0; 1 + i < tRows; i += 1) {
+    tableau[1 + i][tCols - 2] = b[i];
   }
 
   let counter = 0;
