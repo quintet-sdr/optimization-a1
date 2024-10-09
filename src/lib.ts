@@ -35,23 +35,27 @@ export function maximize(
     tableau[0][i] = -1 * c[i];
   }
 
+  // X-es
   for (let i = 1; i < tRows; i += 1) {
-    // X-es
     for (let j = 0; j < c.length; j += 1) {
       tableau[i][j] = a[i - 1][j];
     }
+  }
 
-    // S-es
+  // S-es
+  for (let i = 1; i < tRows; i += 1) {
     tableau[i][c.length + i - 1] = 1;
+  }
 
-    // Solution row
+  // Solution row
+  for (let i = 1; i < tRows; i += 1) {
     tableau[i][tCols - 2] = b[i - 1];
   }
 
   let counter = 0;
   while (true) {
-    console.log();
     printHeading(`Iteration ${counter}`);
+    console.log();
 
     const pivotCol = findPivotCol(tableau, c);
 
