@@ -45,17 +45,16 @@ export function maximize(
     tableau[1 + i][tCols - 2] = b[i];
   }
 
-  let counter = 0;
+  let iteration = 0;
   while (true) {
-    counter += 1;
+    iteration += 1;
 
     console.log();
-    printHeading(`Iteration ${counter}`);
+    printHeading(`Iteration ${iteration}`);
     console.log();
 
     const pivotCol = findPivotCol(tableau, c);
 
-    // Compute the ratio.
     for (let i = 0; i < tRows; i += 1) {
       tableau[i][tCols - 1] = tableau[i][tCols - 2] / tableau[i][pivotCol];
     }
@@ -75,17 +74,14 @@ export function maximize(
         ` - element: ${pivotElement}`,
     );
 
-    console.log();
-    console.log("Initially:");
+    console.log("\n" + "Initially:");
     prettyPrintWith(tableau, rowNames, colNames, eps);
 
     tableau = crissCrossed(tableau, pivotRow, pivotCol);
 
-    // Change the basis.
     rowNames[pivotCol] = colNames[pivotRow];
 
-    console.log();
-    console.log("After iteration:");
+    console.log("\n" + "After iteration:");
     prettyPrintWith(tableau, rowNames, colNames, eps);
 
     if (tableau[0].every((it) => it >= 0)) {
