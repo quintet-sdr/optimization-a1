@@ -38,7 +38,7 @@ export function maximize(
   while (true) {
     iteration += 1;
 
-    printHeading("\n" + `Iteration ${iteration}` + "\n");
+    printHeading(`Iteration ${iteration}`);
 
     const pivotCol = findPivotCol(tableau, c);
 
@@ -75,7 +75,9 @@ export function maximize(
     }
   }
 
-  printHeading("\n" + "Final Table" + "\n");
+  console.log();
+  printHeading("Final Table");
+  console.log();
   prettyPrintWith(tableau, rowNames, colNames, eps);
 
   const answer = tableau[0][tCols - 2];

@@ -19,7 +19,7 @@ export function prettyPrintWith(
 
 export function printHeading(text: string): void {
   const lines = new Array(24).fill("-").join("");
-  console.log(`${lines}[ ${text} ]${lines}`);
+  console.log("\n" + `${lines}[ ${text} ]${lines}` + "\n");
 }
 
 function prettyPrint(tableau: string[][]) {
