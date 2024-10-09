@@ -38,15 +38,15 @@ export function maximize(
   }
 
   // X-es
-  for (let i = 1; i < tRows; i += 1) {
+  for (let i = 0; 1 + i < tRows; i += 1) {
     for (let j = 0; j < c.length; j += 1) {
-      tableau[i][j] = a[i - 1][j];
+      tableau[1 + i][j] = a[i][j];
     }
   }
 
   // S-es
-  for (let i = 1; i < tRows; i += 1) {
-    tableau[i][c.length + i - 1] = 1;
+  for (let i = 0; 1 + i < tRows; i += 1) {
+    tableau[1 + i][c.length + i] = 1;
   }
 
   // Solution row
