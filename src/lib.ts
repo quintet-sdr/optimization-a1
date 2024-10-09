@@ -104,7 +104,7 @@ export function maximize(
     const tableTmp = tableau.map((row) => row.slice());
 
     for (let i = 0; i < tableau.length; i += 1) {
-      for (let j = 0; j < tableau.length - 1; j += 1) {
+      for (let j = 0; j < tableau[0].length - 1; j += 1) {
         if (i != pivotRowIndex) {
           tableTmp[i][j] =
             tableau[i][j] -
