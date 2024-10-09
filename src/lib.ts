@@ -15,7 +15,7 @@ export function maximize(
   // precision
   eps: number,
 ): SimplexResult | never {
-  simplexAssert(c, a, b);
+  assertLengths(c, a, b);
 
   const xStrings = c.map((_, i) => `x[${i + 1}]`);
   const sStrings = a.map((_, i) => `s[${i + 1}]`);
@@ -159,7 +159,7 @@ function coeffsToFn(coeffs: number[]): string {
   return coeffs.map((it, i) => `${it}*x[${i + 1}]`).join(" + ");
 }
 
-function simplexAssert(c: number[], a: number[][], b: number[]): void | never {
+function assertLengths(c: number[], a: number[][], b: number[]): void | never {
   if (a.length !== b.length) {
     throw new Error(
       `numbers of constraints and right-hand sides don't match':\n` +
