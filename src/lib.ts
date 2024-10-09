@@ -52,57 +52,57 @@ export function maximize(
   while (true) {
     console.log();
     console.log(`START OF ITERATION ${counter}`);
+
     // Find the pivot column.
     let pivotColValue = Infinity;
-    let pivotColIndex!: number;
+    let pivotCol!: number;
 
     for (let i = 0; i < tRows; i += 1) {
       for (let j = 0; j < c.length; j += 1) {
         if (tableau[i][j] < pivotColValue && j !== 0) {
           pivotColValue = tableau[i][j];
-          pivotColIndex = j;
+          pivotCol = j;
         }
       }
     }
 
     // Compute the ratio.
     for (let i = 0; i < tRows; i += 1) {
-      tableau[i][tCols - 1] = tableau[i][tCols - 2] / tableau[i][pivotColIndex];
+      tableau[i][tCols - 1] = tableau[i][tCols - 2] / tableau[i][pivotCol];
     }
 
     // Find the pivot row.
     let pivotRowValue = Infinity;
-    let pivotRowIndex!: number;
+    let pivotRow!: number;
 
     tableau.forEach((row, i) => {
       if (row[tCols - 1] < pivotRowValue && row[tCols - 1] > 0) {
         pivotRowValue = row[tCols - 1];
-        pivotRowIndex = i;
+        pivotRow = i;
       }
     });
 
     // Find the pivot element.
-    const pivotElement = tableau[pivotRowIndex][pivotColIndex];
+    const pivotElement = tableau[pivotRow][pivotCol];
 
     // Divide the pivot row by the pivot element.
     for (let j = 0; j < tCols - 1; j += 1) {
-      tableau[pivotRowIndex][j] /= pivotElement;
+      tableau[pivotRow][j] /= pivotElement;
     }
+
     console.log(
-      `Pivot column element: ${colNames[pivotColIndex]} = ${pivotColValue}`,
+      `Pivot column element: ${colNames[pivotCol]} = ${pivotColValue}`,
     );
-    console.log(
-      `Pivot row element: ${rowNames[pivotRowIndex]} = ${pivotRowValue}`,
-    );
+    console.log(`Pivot row element: ${rowNames[pivotRow]} = ${pivotRowValue}`);
     console.log(`Pivot element: ${pivotElement}`);
     console.log();
     console.log("INITIAL TABLE:");
     prettyPrintWith(tableau, rowNames, colNames, eps);
 
-    tableau = crissCrossed(tableau, pivotRowIndex, pivotColIndex);
+    tableau = crissCrossed(tableau, pivotRow, pivotCol);
 
     // Change the basis.
-    rowNames[pivotColIndex] = colNames[pivotRowIndex];
+    rowNames[pivotCol] = colNames[pivotRow];
     console.log();
     console.log("TABLE AFTER ITERATION:");
     prettyPrintWith(tableau, rowNames, colNames, eps);
