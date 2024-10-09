@@ -125,7 +125,8 @@ export function maximize(
     if (table[0].filter((it) => it < 0).length === 0) {
       running = false;
     }
-    console.log("\nEND OF ITERATION ", counter);
+    console.log();
+    console.log("END OF ITERATION ", counter);
     counter += 1;
   }
 
