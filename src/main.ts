@@ -109,10 +109,25 @@ export function maximize(
     rowNames[pivot_col_ind] = colNames[pivot_row_ind];
     prettyPrintWith(table, rowNames, colNames);
 
-    if(table[0].filter((it) => it < 0).length === 0){
+    if (table[0].filter((it) => it < 0).length === 0) {
       running = false;
     }
   }
+
+  console.log("Final table:");
+  prettyPrintWith(table, rowNames, colNames);
+
+  let answer = table[0][c.length + a.length + 1];
+  let x_inds = arrayOf(c.length, () => 0);
+  for (let i = 0; i <= rowNames.length; i++) {
+    if (rowNames[i].startsWith("x")) {
+      x_inds[Number.parseInt(rowNames[i].slice(1)) - 1] = table[i][c.length + a.length + 1];
+    }
+  }
+  console.log(answer);
+  console.log(x_inds)
+
+
   return {
     x: [],
     max: 42,
