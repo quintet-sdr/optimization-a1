@@ -49,7 +49,7 @@ export function maximize(
   let counter = 0;
   while (running) {
     console.log();
-    console.log("START OF ITERATION ", counter);
+    console.log(`START OF ITERATION ${counter}`);
     // Find pivot column
     let pivotColValue = 1e6;
     let pivotColIndex = -1;
@@ -90,20 +90,14 @@ export function maximize(
       table[pivotRowIndex][j] = table[pivotRowIndex][j] / pivotElement;
     }
     console.log(
-      "Pivot column element: ",
-      colNames[pivotColIndex],
-      " = ",
-      pivotColValue,
+      `Pivot column element: ${colNames[pivotColIndex]} = ${pivotColValue}`,
     );
     console.log(
-      "Pivot row element: ",
-      rowNames[pivotRowIndex],
-      " = ",
-      pivotRowValue,
+      `Pivot row element: ${rowNames[pivotRowIndex]} = ${pivotRowValue}`,
     );
-    console.log("Pivot element: ", pivotElement);
+    console.log(`Pivot element: ${pivotElement}`);
     console.log();
-    console.log("INITIAL TABLE: ");
+    console.log("INITIAL TABLE:");
     prettyPrintWith(table, rowNames, colNames, eps);
     //Make pivot column to 0
     let tableTmp = table.map((row) => row.slice());
@@ -127,7 +121,7 @@ export function maximize(
       running = false;
     }
     console.log();
-    console.log("END OF ITERATION ", counter);
+    console.log(`END OF ITERATION ${counter}`);
     counter += 1;
   }
 
