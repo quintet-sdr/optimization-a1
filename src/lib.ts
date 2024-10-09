@@ -7,6 +7,7 @@ export function maximize(
   c: number[], // coefficitents of the objective function
   a: number[][], // coefficients of the constraint functions
   b: number[], // right-hand side numbers,
+  eps: number,
 ): SimplexResult | never {
   simplex_assert(c, a, b);
 
@@ -23,7 +24,7 @@ export function maximize(
     arrayOf(c.length + a.length + 2, () => 0),
   );
 
-  prettyPrintWith(table, rowNames, colNames);
+  prettyPrintWith(table, rowNames, colNames, eps);
   console.log();
 
   // Z-row
@@ -100,7 +101,7 @@ export function maximize(
     );
     console.log("Pivot element: ", pivot_elem);
     console.log("\nINITIAL TABLE: ");
-    prettyPrintWith(table, rowNames, colNames);
+    prettyPrintWith(table, rowNames, colNames, eps);
     //Make pivot column to 0
     let temp_table = table.map((row) => row.slice());
     for (let i = 0; i <= a.length; i++) {
@@ -116,7 +117,7 @@ export function maximize(
     // Changing basis
     rowNames[pivot_col_ind] = colNames[pivot_row_ind];
     console.log("\nTABLE AFTER ITERATION:");
-    prettyPrintWith(table, rowNames, colNames);
+    prettyPrintWith(table, rowNames, colNames, eps);
 
     if (table[0].filter((it) => it < 0).length === 0) {
       running = false;
@@ -126,7 +127,7 @@ export function maximize(
   }
 
   console.log("\nFinal table:");
-  prettyPrintWith(table, rowNames, colNames);
+  prettyPrintWith(table, rowNames, colNames, eps);
 
   let answer = table[0][c.length + a.length];
   let x_inds = arrayOf(c.length, () => 0);
@@ -174,12 +175,13 @@ function prettyPrintWith(
   tableau: number[][],
   rowNames: string[],
   colNames: string[],
+  precision: number,
 ): void {
   prettyPrint([
     ["Basic", ...colNames],
     ...tableau.map((row, i) => [
       rowNames[i],
-      ...row.map((num) => num.toFixed(5)),
+      ...row.map((num) => num.toFixed(precision)),
     ]),
   ]);
 }

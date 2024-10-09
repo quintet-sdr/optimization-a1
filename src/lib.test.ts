@@ -2,6 +2,8 @@ import { expect, test } from "bun:test";
 
 import { maximize, type SimplexResult } from "./lib";
 
+const PRECISION: number = 5;
+
 test("problem-1", () => {
   const left = maximize(
     [8, 7, 5],
@@ -11,6 +13,7 @@ test("problem-1", () => {
       [5, 4, 3],
     ],
     [100, 90, 120],
+    PRECISION,
   );
   const right: SimplexResult = { x: [10, 0, 15], max: 145 };
 
@@ -26,6 +29,7 @@ test("problem-2", () => {
       [3, 4, 6],
     ],
     [240, 160, 300],
+    PRECISION,
   );
   const right: SimplexResult = { x: [20, 0, 30], max: 470 };
 
@@ -41,6 +45,7 @@ test("problem-3", () => {
       [4, 3, 2],
     ],
     [300, 180, 150],
+    PRECISION,
   );
   const right: SimplexResult = { x: [10, 20, 0], max: 700 };
 
@@ -56,6 +61,7 @@ test("problem-4", () => {
       [4, 1, 3],
     ],
     [120, 150, 180],
+    PRECISION,
   );
   const right: SimplexResult = { x: [30, 0, 24], max: 246 };
 
@@ -71,6 +77,7 @@ test("problem-5", () => {
       [5, 3, 3],
     ],
     [360, 192, 180],
+    PRECISION,
   );
   const right: SimplexResult = { x: [0, 8, 20], max: 400 };
 
@@ -78,8 +85,6 @@ test("problem-5", () => {
 });
 
 function assertEq(left: SimplexResult, right: SimplexResult): void | never {
-  const PRECISION: number = 5;
-
   expect(left.max).toBeCloseTo(right.max, PRECISION);
   left.x.forEach((_, i) =>
     expect(left.x[i]).toBeCloseTo(right.x[i], PRECISION),
