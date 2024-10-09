@@ -37,17 +37,14 @@ export function maximize(
   let iteration = 0;
   while (true) {
     iteration += 1;
-
     printHeading(`Iteration ${iteration}`);
 
     const pivotCol = findPivotCol(tableau, c);
-
     for (let i = 0; i < tableau.length; i += 1) {
       tableau[i][tCols - 1] = tableau[i][tCols - 2] / tableau[i][pivotCol];
     }
 
     const pivotRow = findPivotRow(tableau);
-
     const pivotElement = tableau[pivotRow][pivotCol];
     for (let j = 0; j < tCols - 1; j += 1) {
       tableau[pivotRow][j] /= pivotElement;
@@ -64,7 +61,6 @@ export function maximize(
     prettyPrintWith(tableau, rowNames, colNames, eps);
 
     tableau = crissCrossed(tableau, pivotRow, pivotCol);
-
     rowNames[pivotCol] = colNames[pivotRow];
 
     console.log("\n" + "After iteration:");
@@ -75,9 +71,7 @@ export function maximize(
     }
   }
 
-  console.log();
   printHeading("Final Table");
-  console.log();
   prettyPrintWith(tableau, rowNames, colNames, eps);
 
   const answer = tableau[0][tCols - 2];
