@@ -31,11 +31,15 @@ export function maximize(
   const colNames = [...xStrings, ...sStrings, "Solution", "Ratio"];
 
   let tableau = buildTableau(c, a, b);
+  const tableauCols = tableau[0].length;
 
   console.log("\n" + "Initial table:");
-  prettyPrintWith(tableau, rowNames, colNames, eps);
-
-  const tableauCols = c.length + a.length + 2;
+  prettyPrintWith(
+    tableau.map((row) => row.slice(0, tableauCols - 1)),
+    rowNames,
+    colNames.slice(0, tableauCols - 1),
+    eps,
+  );
 
   let iteration = 0;
   while (true) {
