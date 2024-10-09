@@ -15,10 +15,10 @@ export function maximize(
 ): SimplexResult | never {
   simplexAssert(c, a, b);
 
-  console.log(`Function: ${fnOfXs(c.length)} = ${coeffsToFn(c)}`);
-
   const xStrings = c.map((_, i) => `x[${i + 1}]`);
   const sStrings = a.map((_, i) => `s[${i + 1}]`);
+
+  console.log(`Function: ${xStrings.join(", ")} = ${coeffsToFn(c)}`);
 
   const rowNames = ["z", ...sStrings];
   const colNames = [...xStrings, ...sStrings, "Solution", "Ratio"];
@@ -150,15 +150,6 @@ export function maximize(
 
 function arrayOf<T>(n: number, item: () => T): T[] {
   return new Array(n).fill(undefined).map(item);
-}
-
-function fnOfXs(n: number): string {
-  const xs = [];
-  for (let i = 1; i <= n; i += 1) {
-    xs.push(`x[${i}]`);
-  }
-
-  return `F(${xs.join(", ")})`;
 }
 
 function coeffsToFn(coeffs: number[]): string {
