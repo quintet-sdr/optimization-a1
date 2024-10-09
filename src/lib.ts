@@ -88,7 +88,7 @@ export function maximize(
     console.log("After iteration:");
     prettyPrintWith(tableau, rowNames, colNames, eps);
 
-    if (tableau[0].filter((it) => it < 0).length === 0) {
+    if (tableau[0].every((it) => it >= 0)) {
       break;
     }
   }
