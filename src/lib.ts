@@ -1,4 +1,4 @@
-import { arrayOf, prettyPrintWith } from "./util";
+import { arrayOf, prettyPrintWith, printHeading } from "./util";
 
 export type SimplexResult = {
   x: number[];
@@ -51,7 +51,7 @@ export function maximize(
   let counter = 0;
   while (true) {
     console.log();
-    console.log(`START OF ITERATION ${counter}`);
+    printHeading(`Iteration ${counter}`);
 
     const pivotCol = findPivotCol(tableau, c);
 
@@ -69,8 +69,8 @@ export function maximize(
     }
 
     console.log("Pivot");
-    console.log(` - column: ${colNames[pivotCol]}`);
     console.log(` - row: ${rowNames[pivotRow]}`);
+    console.log(` - column: ${colNames[pivotCol]}`);
     console.log(` - element: ${pivotElement}`);
     console.log();
     console.log("INITIAL TABLE:");

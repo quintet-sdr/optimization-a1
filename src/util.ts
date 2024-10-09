@@ -17,6 +17,11 @@ export function prettyPrintWith(
   ]);
 }
 
+export function printHeading(text: string): void {
+  const lines = new Array(24).fill("-").join("");
+  console.log(`${lines}[ ${text} ]${lines}`);
+}
+
 function prettyPrint(tableau: string[][]) {
   let colMaxes = [];
   for (let i = 0; i < tableau[0].length; i += 1) {
