@@ -137,10 +137,12 @@ export function maximize(
   console.log(rowNames);
 
   rowNames.slice(1).forEach((_, i) => {
-    if (rowNames[i].startsWith("x")) {
-      const x = Number.parseInt(rowNames[i].slice(2)) - 1;
+    const rowName = rowNames[i];
+    if (rowName.startsWith("x")) {
+      const ind =
+        Number.parseInt(rowName.slice(1).slice(1, rowName.length - 2)) - 1;
 
-      xIndexes[x] = tableau[i][tCols - 2];
+      xIndexes[ind] = tableau[i][tCols - 2];
     }
   });
 
