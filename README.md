@@ -12,8 +12,8 @@
 
 ## Installation
 
-You can install Bun using the
-[official guide](https://bun.sh/docs/installation):
+You can install Bun using their
+[official guide](https://bun.sh/docs/installation).
 
 For MacOS and Linux:
 
