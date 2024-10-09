@@ -105,16 +105,17 @@ export function maximize(
   const xIndexes = arrayOf(c.length, () => 0);
   console.log(rowNames);
 
-  rowNames.slice(1).forEach((rowName, iShifted) => {
-    const i = iShifted + 1;
+  rowNames
+    .map((rowName, i) => ({ rowName, i }))
+    .slice(1)
+    .forEach(({ rowName, i }) => {
+      if (rowName.startsWith("x")) {
+        const numPartStr = rowName.slice(1).slice(1, rowName.length - 2);
+        const numPart = Number.parseInt(numPartStr);
 
-    if (rowName.startsWith("x")) {
-      const numPartStr = rowName.slice(1).slice(1, rowName.length - 2);
-      const numPart = Number.parseInt(numPartStr);
-
-      xIndexes[numPart - 1] = tableau[i][tCols - 2];
-    }
-  });
+        xIndexes[numPart - 1] = tableau[i][tCols - 2];
+      }
+    });
 
   console.log(xIndexes);
   console.log(answer);
