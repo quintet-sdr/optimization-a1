@@ -78,18 +78,28 @@ export function maximize(
         pivot_row_ind = i;
       }
     }
-    console.log("Pivot column element: ", colNames[pivot_col_ind], " = ", pivot_col_val);
-    console.log("Pivot row element: ", rowNames[pivot_row_ind], " = ", pivot_row_val);
 
     //Find pivot element
     let pivot_elem = table[pivot_row_ind][pivot_col_ind];
-    console.log("Pivot element: ", pivot_elem);
 
     //Divide pivot row to pivot element
     for (let j = 0; j <= c.length + b.length; j++) {
       table[pivot_row_ind][j] = table[pivot_row_ind][j] / pivot_elem;
     }
-    console.log("\nINITIAL TABLE: ")
+    console.log(
+      "Pivot column element: ",
+      colNames[pivot_col_ind],
+      " = ",
+      pivot_col_val
+    );
+    console.log(
+      "Pivot row element: ",
+      rowNames[pivot_row_ind],
+      " = ",
+      pivot_row_val
+    );
+    console.log("Pivot element: ", pivot_elem);
+    console.log("\nINITIAL TABLE: ");
     prettyPrintWith(table, rowNames, colNames);
     //Make pivot column to 0
     let temp_table = table.map((row) => row.slice());
@@ -105,7 +115,7 @@ export function maximize(
 
     // Changing basis
     rowNames[pivot_col_ind] = colNames[pivot_row_ind];
-    console.log("\nTABLE AFTER ITERATION:")
+    console.log("\nTABLE AFTER ITERATION:");
     prettyPrintWith(table, rowNames, colNames);
 
     if (table[0].filter((it) => it < 0).length === 0) {
