@@ -7,8 +7,8 @@
 > **Pay attention!**
 >
 > We solved this assignment using TypeScript with the Bun runtime. The code will
-> not work with Node.js because we&CloseCurlyQuote;ve used the built-in testing library,
-> unavailable on Node.
+> not work with Node.js because we&CloseCurlyQuote;ve used the built-in testing
+> library, unavailable on Node.
 
 ## Installation
 
@@ -17,13 +17,13 @@ You can install Bun using their
 
 For MacOS and Linux:
 
-```bash
+```shell
 curl -fsSL https://bun.sh/install | bash
 ```
 
 For Windows:
 
-```bash
+```shell
 powershell -c "irm bun.sh/install.ps1|iex"
 ```
 
