@@ -86,7 +86,7 @@ export function maximize(
     const pivotElement = tableau[pivotRowIndex][pivotColIndex];
 
     // Divide the pivot row by the pivot element.
-    for (let j = 0; j <= c.length + b.length; j += 1) {
+    for (let j = 0; j < tableau[0].length - 1; j += 1) {
       tableau[pivotRowIndex][j] /= pivotElement;
     }
     console.log(
