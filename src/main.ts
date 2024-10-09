@@ -64,7 +64,7 @@ export function maximize(
     table[i][c.length + b.length + 1] =
       table[i][c.length + b.length] / table[i][pivot_col_ind];
   }
-  prettyPrint(table);
+  prettyPrintWith(table, rowNames, colNames);
 
   //Find pivot row
   let pivot_row_val = 1e6;
@@ -88,7 +88,7 @@ export function maximize(
   for (let j = 0; j <= c.length + b.length; j++) {
     table[pivot_row_ind][j] = table[pivot_row_ind][j] / pivot_elem;
   }
-  prettyPrint(table);
+  prettyPrintWith(table, rowNames, colNames);
   console.log("")
   for (let i = 0; i <= a.length; i++) {
     for (let j = 0; j <= c.length + a.length; j++) {
@@ -98,7 +98,7 @@ export function maximize(
       }
     }
   }
-  prettyPrint(table);
+  prettyPrintWith(table, rowNames, colNames);
 
   return {
     x: [],
