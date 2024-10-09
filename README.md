@@ -4,14 +4,16 @@
 
 [![Bun][Bun.js]][Bun-url] [![TypesScript][TypeScript-logo]][TypeScript-url]
 
-### Pay attention
-
-To solve the assignment, we used Bun with TypeScript. The project will not work
-on NodeJS because we used the built-in testing library unavailable on Node.
+> **Pay attention!**
+>
+> We solved this assignment, we used Bun with TypeScript. The project will not
+> work on NodeJS because we used the built-in testing library unavailable on
+> Node.
 
 ## Installation
 
-You can install Bun using the [official guide](https://bun.sh/docs/installation):
+You can install Bun using the
+[official guide](https://bun.sh/docs/installation):
 
 For MacOS and Linux:
 
@@ -39,7 +41,7 @@ To run the project, use the command below.
 bun test
 ```
 
-The report is contained [here](/report/report.pdf).
+You may find the report under [report/report.pdf](/report/report.pdf).
 
 [Bun.js]: https://img.shields.io/badge/Bun-%23000000.svg?style=for-the-badge&logo=bun&logoColor=white
 [Bun-url]: https://bun.sh/
