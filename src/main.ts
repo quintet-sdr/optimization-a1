@@ -49,6 +49,7 @@ export function maximize(
   let running = true;
   let counter = 0;
   while (running) {
+    console.log("END OF ITERATION ", counter);
     // Find pivot column
     let pivot_col_val = 1e6;
     let pivot_col_ind = -1;
@@ -60,14 +61,12 @@ export function maximize(
         }
       }
     }
-    console.log(pivot_col_val, pivot_col_ind);
 
     // Compute the ratio
     for (let i = 0; i <= a.length; i++) {
       table[i][c.length + b.length + 1] =
         table[i][c.length + b.length] / table[i][pivot_col_ind];
     }
-    prettyPrintWith(table, rowNames, colNames);
 
     //Find pivot row
     let pivot_row_val = 1e6;
@@ -81,7 +80,8 @@ export function maximize(
         pivot_row_ind = i;
       }
     }
-    console.log(pivot_row_val, pivot_row_ind);
+    console.log("Pivot column element | ind: ", pivot_col_val, pivot_col_ind);
+    console.log("Pivot row element | ind: ", pivot_row_val, pivot_row_ind);
 
     //Find pivot element
     let pivot_elem = table[pivot_row_ind][pivot_col_ind];
@@ -91,8 +91,6 @@ export function maximize(
     for (let j = 0; j <= c.length + b.length; j++) {
       table[pivot_row_ind][j] = table[pivot_row_ind][j] / pivot_elem;
     }
-    prettyPrintWith(table, rowNames, colNames);
-    console.log("");
     //Make pivot column to 0
     let temp_table = table.map((row) => row.slice());
     for (let i = 0; i <= a.length; i++) {
@@ -104,7 +102,6 @@ export function maximize(
       }
     }
     table = temp_table;
-    prettyPrintWith(table, rowNames, colNames);
 
     // Changing basis
     rowNames[pivot_col_ind] = colNames[pivot_row_ind];
@@ -113,11 +110,8 @@ export function maximize(
     if (table[0].filter((it) => it < 0).length === 0) {
       running = false;
     }
+    console.log("END OF ITERATION ", counter);
     counter += 1;
-    if(counter >= 10){
-      running = false;
-      console.log("LIMIT OF 10")
-    }
   }
 
   console.log("Final table:");
@@ -128,12 +122,13 @@ export function maximize(
   console.log(rowNames);
   for (let i = 1; i < rowNames.length; i++) {
     if (rowNames[i][0] === "x") {
-      x_inds[Number.parseInt(rowNames[i].slice(2, rowNames[i].length - 1)) - 1] = table[i][c.length + a.length];
+      x_inds[
+        Number.parseInt(rowNames[i].slice(2, rowNames[i].length - 1)) - 1
+      ] = table[i][c.length + a.length];
     }
   }
   console.log(answer);
-  console.log(x_inds)
-
+  console.log(x_inds);
 
   return {
     x: x_inds,
