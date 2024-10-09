@@ -130,8 +130,8 @@ export function maximize(
 
 
   return {
-    x: [],
-    max: 42,
+    x: x_inds,
+    max: answer,
   };
 }
 
