@@ -90,16 +90,17 @@ export function maximize(
   }
   prettyPrintWith(table, rowNames, colNames);
   console.log("")
+  let temp_table = table;
   for (let i = 0; i <= a.length; i++) {
     for (let j = 0; j <= c.length + a.length; j++) {
       console.log(j);
       if (i != pivot_row_ind) {
-        table[i][j] =
+        temp_table[i][j] =
           table[i][j] - table[i][pivot_col_ind] * table[pivot_row_ind][j];
       }
     }
   }
-  prettyPrintWith(table, rowNames, colNames);
+  prettyPrintWith(temp_table, rowNames, colNames);
 
   return {
     x: [],
