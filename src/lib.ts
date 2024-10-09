@@ -149,13 +149,7 @@ export function maximize(
 }
 
 function arrayOf<T>(n: number, item: () => T): T[] {
-  const a: T[] = new Array(n);
-
-  for (let i = 0; i < n; i += 1) {
-    a[i] = item();
-  }
-
-  return a;
+  return new Array(n).fill(undefined).map(item);
 }
 
 function fnOfXs(n: number): string {
