@@ -128,10 +128,10 @@ export function maximize(
     const i = iShifted + 1;
 
     if (rowName.startsWith("x")) {
-      const xI =
-        Number.parseInt(rowName.slice(1).slice(1, rowName.length - 2)) - 1;
+      const numPartStr = rowName.slice(1).slice(1, rowName.length - 2);
+      const numPart = Number.parseInt(numPartStr);
 
-      xIndexes[xI] = tableau[i][tCols - 2];
+      xIndexes[numPart - 1] = tableau[i][tCols - 2];
     }
   });
 
