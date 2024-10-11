@@ -52,7 +52,7 @@ export function maximize(
     const pivotRow = findPivotRow(tableau, ratios);
     const pivotElement = tableau[pivotRow][pivotCol];
 
-    console.log("\n" + "Initially:");
+    console.log("Initially:");
     prettyPrintWith(
       tableau.map((row, i) => [...row, ratios[i]]),
       rowNames,
@@ -62,7 +62,7 @@ export function maximize(
     console.log();
     console.log(`Pivot row: ${rowNames[pivotRow]}`);
     console.log(`Pivot column: ${colNames[pivotCol]}`);
-    console.log(`Pivot element: ${pivotElement}`);
+    console.log(`Pivot element: ${pivotElement.toFixed(eps)}`);
 
     tableau[pivotRow] = tableau[pivotRow].map((it) => it / pivotElement);
 
