@@ -21,7 +21,7 @@ export function maximize(
   c: number[],
   a: number[][],
   b: number[],
-  eps: number,
+  eps: number = 3,
 ): SimplexResult | never {
   assertLengths(c, a, b);
 

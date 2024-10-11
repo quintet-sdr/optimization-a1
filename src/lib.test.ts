@@ -2,8 +2,6 @@ import { expect, test } from "bun:test";
 
 import { maximize, type SimplexResult } from "./lib";
 
-const PRECISION: number = 3;
-
 test("tut-3", () => {
   const left = maximize(
     [10, 20],
@@ -13,7 +11,6 @@ test("tut-3", () => {
       [5, 3],
     ],
     [15, 12, 45],
-    PRECISION,
   );
   const right: SimplexResult = { solverState: "solved", x: [3, 9], z: 210 };
 
@@ -29,7 +26,6 @@ test("lab-3-problem-1", () => {
       [5, 3, 3],
     ],
     [360, 192, 180],
-    PRECISION,
   );
   const right: SimplexResult = { solverState: "solved", x: [0, 8, 20], z: 400 };
 
@@ -45,7 +41,6 @@ test("lab-3-problem-3", () => {
       [1, -1, 2],
     ],
     [24, 23, 10],
-    PRECISION,
   );
   const right: SimplexResult = {
     solverState: "solved",
@@ -64,7 +59,6 @@ test("unbounded-1", () => {
       [2, 0],
     ],
     [10, 40],
-    PRECISION,
   );
   const right: SimplexResult = { solverState: "unbounded" };
 
@@ -79,14 +73,17 @@ test("unbounded-2", () => {
       [-2, 1],
     ],
     [2, -1],
-    PRECISION,
   );
   const right: SimplexResult = { solverState: "unbounded" };
 
   assertEq(left, right);
 });
 
-function assertEq(left: SimplexResult, right: SimplexResult): void | never {
+function assertEq(
+  left: SimplexResult,
+  right: SimplexResult,
+  eps: number = 3,
+): void | never {
   expect(left.solverState).toBe(right.solverState);
 
   // HACK: this allows TypeScript to validate types.
@@ -94,8 +91,6 @@ function assertEq(left: SimplexResult, right: SimplexResult): void | never {
     return;
   }
 
-  expect(left.z).toBeCloseTo(right.z, PRECISION);
-  left.x.forEach((_, i) =>
-    expect(left.x[i]).toBeCloseTo(right.x[i], PRECISION),
-  );
+  expect(left.z).toBeCloseTo(right.z, eps);
+  left.x.forEach((_, i) => expect(left.x[i]).toBeCloseTo(right.x[i], eps));
 }
