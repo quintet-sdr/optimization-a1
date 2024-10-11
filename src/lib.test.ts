@@ -20,6 +20,36 @@ test("tut-3", () => {
   assertEq(left, right);
 });
 
+test("lec-4-unbounded", () => {
+  const left = maximize(
+    [2, 1],
+    [
+      [1, -1],
+      [2, 0],
+    ],
+    [10, 40],
+    PRECISION,
+  );
+  const right: SimplexResult = { x: [3, 9], max: 210 };
+
+  assertEq(left, right);
+});
+
+test("lec-4-unbounded", () => {
+  const left = maximize(
+    [3, 2],
+    [
+      [1, -1],
+      [-2, 1],
+    ],
+    [2, -1],
+    PRECISION
+  );
+  const right: SimplexResult = { x: [3, 9], max: 210 };
+
+  assertEq(left, right);
+});
+
 test("lab-3-problem-1", () => {
   const left = maximize(
     [9, 10, 16],
@@ -37,24 +67,24 @@ test("lab-3-problem-1", () => {
 });
 
 test("lab-3-problem-3", () => {
-  const left = maximize(
-    [2, -2, 6],
-    [
-      [2, 1, -2],
-      [1, 2, 4],
-      [1, -1, 2],
-    ],
-    [24, 23, 10],
-    PRECISION,
-  );
-  const right: SimplexResult = { x: [0, 3 / 4, 43 / 8], max: 123 / 4 };
+const left = maximize(
+  [2, -2, 6],
+  [
+    [2, 1, -2],
+    [1, 2, 4],
+    [1, -1, 2],
+  ],
+  [24, 23, 10],
+  PRECISION,
+);
+const right: SimplexResult = { x: [0, 3 / 4, 43 / 8], max: 123 / 4 };
 
-  assertEq(left, right);
+assertEq(left, right);
 });
 
 function assertEq(left: SimplexResult, right: SimplexResult): void | never {
   expect(left.max).toBeCloseTo(right.max, PRECISION);
   left.x.forEach((_, i) =>
-    expect(left.x[i]).toBeCloseTo(right.x[i], PRECISION),
+    expect(left.x[i]).toBeCloseTo(right.x[i], PRECISION)
   );
 }

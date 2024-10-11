@@ -35,9 +35,15 @@ export function maximize(
 
   console.log("\n" + "Initial table:");
   prettyPrintWith(tableau, rowNames, colNames, eps);
+  
 
   let iteration = 0;
   while (true) {
+
+    if (checkUnbounded(tableau)) {
+      throw new Error("Unbounded solution");
+    }
+
     iteration += 1;
     printHeading(`Iteration ${iteration}`);
 
@@ -203,4 +209,23 @@ function assertLengths(c: number[], a: number[][], b: number[]): void | never {
       );
     }
   });
+}
+
+
+function checkUnbounded(tableau: number[][]): boolean {
+  let isUnbounded = false;
+  for (let j = 0; j < tableau[0].length - 1; j++) {
+    let flag = 0;
+    for (let i = 0; i < tableau.length; i++) {
+      // console.log(tableau[i][j]);
+      if (tableau[i][j] <= 0) {
+        flag++;
+      }
+    }
+    if (flag == tableau.length) {
+      isUnbounded = true;
+      break;
+    }
+  }
+  return isUnbounded;
 }
