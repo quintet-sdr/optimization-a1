@@ -47,7 +47,11 @@ export function maximize(
     }
 
     const ratios = tableau.map((row) => row[tableauCols - 1] / row[pivotCol]);
-    const pivotRow = findPivotRow(tableau, ratios);
+    const pivotRow = findPivotRow(ratios);
+    if (pivotRow === undefined) {
+      throw new Error("unable to calculate the pivot row");
+    }
+
     const pivotElement = tableau[pivotRow][pivotCol];
 
     console.log("Initially:");
@@ -168,21 +172,17 @@ function findPivotCol(zRow: number[]): number | undefined {
     }, undefined)?.i;
 }
 
-function findPivotRow(tableau: number[][], ratios: number[]): number {
-  let pivotRowValue = Infinity;
-  let pivotRow!: number;
-
-  ratios
+function findPivotRow(ratios: number[]): number | undefined {
+  return ratios
     .map((ratio, i) => ({ ratio, i }))
     .filter(({ ratio }) => ratio > 0)
-    .forEach(({ ratio, i }) => {
-      if (ratio < pivotRowValue) {
-        pivotRowValue = ratio;
-        pivotRow = i;
+    .reduce((acc: { ratio: number; i: number } | undefined, cur) => {
+      if (acc === undefined || cur.ratio < acc.ratio) {
+        return cur;
+      } else {
+        return acc;
       }
-    });
-
-  return pivotRow;
+    }, undefined)?.i;
 }
 
 function assertLengths(c: number[], a: number[][], b: number[]): void | never {
