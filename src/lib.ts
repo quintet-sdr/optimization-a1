@@ -41,7 +41,10 @@ export function maximize(
     iteration += 1;
     printHeading(`Iteration ${iteration}`);
 
-    const pivotCol = findPivotCol(tableau, c);
+    const pivotCol = findPivotCol(tableau[0]);
+    if (pivotCol === undefined) {
+      throw new Error("unable to calculate the pivot column");
+    }
 
     const ratios = tableau.map((row) => row[tableauCols - 1] / row[pivotCol]);
     const pivotRow = findPivotRow(tableau, ratios);
@@ -152,20 +155,17 @@ function crissCrossed(
   return newTableau;
 }
 
-function findPivotCol(tableau: number[][], c: number[]): number {
-  let pivotColValue = Infinity;
-  let pivotCol!: number;
-
-  for (let i = 0; i < tableau.length; i += 1) {
-    for (let j = 0; j < c.length; j += 1) {
-      if (tableau[i][j] < pivotColValue && j !== 0) {
-        pivotColValue = tableau[i][j];
-        pivotCol = j;
+function findPivotCol(zRow: number[]): number | undefined {
+  return zRow
+    .map((value, i) => ({ value, i }))
+    .filter(({ value }) => value < 0)
+    .reduce((acc: { value: number; i: number } | undefined, cur) => {
+      if (acc === undefined || cur.value < acc.value) {
+        return cur;
+      } else {
+        return acc;
       }
-    }
-  }
-
-  return pivotCol;
+    }, undefined)?.i;
 }
 
 function findPivotRow(tableau: number[][], ratios: number[]): number {
