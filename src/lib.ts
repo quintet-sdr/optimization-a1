@@ -29,6 +29,8 @@ export function maximize(
   const xStrings = c.map((_, i) => i + 1).map((i) => `x[${i}]`);
   const sStrings = a.map((_, i) => i + 1).map((i) => `s[${i}]`);
 
+  printHeading("* Simplex *");
+
   console.log(
     `Function: F(${xStrings.join(", ")}) = ${c.map((coeff, i) => `${coeff}${xStrings[i]}`).join(" + ")}`,
   );
@@ -45,7 +47,7 @@ export function maximize(
   let iteration = 0;
   while (true) {
     if (checkUnbounded(tableau)) {
-      printHeading("x Unbounded x");
+      printHeading("~Unbounded~");
       return { ok: false, error: "unbounded" };
     }
 
