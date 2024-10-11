@@ -28,7 +28,7 @@ export function maximize(
   );
 
   const rowNames = ["z", ...sStrings];
-  const colNames = [...xStrings, ...sStrings, "Solution", "Ratio"];
+  const colNames = [...xStrings, ...sStrings, "Solution"];
 
   let tableau = buildTableau(c, a, b);
   const tableauCols = tableau[0].length;
@@ -47,22 +47,26 @@ export function maximize(
     printHeading(`Iteration ${iteration}`);
 
     const pivotCol = findPivotCol(tableau, c);
-    tableau.forEach((row) => {
-      row[tableauCols - 1] = row[tableauCols - 2] / row[pivotCol];
-    });
 
-    const pivotRow = findPivotRow(tableau);
+    const ratios = tableau.map((row) => row[tableauCols - 1] / row[pivotCol]);
+    const pivotRow = findPivotRow(tableau, ratios);
     const pivotElement = tableau[pivotRow][pivotCol];
 
-    for (let j = 0; j < tableauCols - 1; j += 1) {
-      tableau[pivotRow][j] /= pivotElement;
-    }
-
+    console.log("\n" + "Initially:");
+    prettyPrintWith(
+      tableau.map((row, i) => [...row, ratios[i]]),
+      rowNames,
+      [...colNames, "Ratio"],
+      eps,
+    );
+    console.log();
     console.log(`Pivot row: ${rowNames[pivotRow]}`);
     console.log(`Pivot column: ${colNames[pivotCol]}`);
     console.log(`Pivot element: ${pivotElement}`);
 
-    console.log("\n" + "Initially:");
+    tableau[pivotRow] = tableau[pivotRow].map((it) => it / pivotElement);
+
+    console.log("\n" + "After dividing the pivot row:");
     prettyPrintWith(tableau, rowNames, colNames, eps);
 
     tableau = crissCrossed(tableau, pivotRow, pivotCol);
@@ -85,7 +89,7 @@ export function maximize(
   printHeading("Final Table");
   prettyPrintWith(tableau, rowNames, colNames, eps);
 
-  const answer = tableau[0][tableauCols - 2];
+  const answer = tableau[0][tableauCols - 1];
   const xIndexes = arrayOf(c.length, () => 0);
 
   rowNames
@@ -94,7 +98,7 @@ export function maximize(
     .forEach(({ rowName, i }) => {
       if (rowName.startsWith("x")) {
         const numPart = Number.parseInt(rowName.match(/\[(\d+)\]/)![1]);
-        xIndexes[numPart - 1] = tableau[i][tableauCols - 2];
+        xIndexes[numPart - 1] = tableau[i][tableauCols - 1];
       }
     });
 
@@ -112,7 +116,7 @@ export function maximize(
 
 function buildTableau(c: number[], a: number[][], b: number[]): number[][] {
   const tableau = arrayOf(1 + a.length, () =>
-    arrayOf(c.length + a.length + 2, () => 0),
+    arrayOf(c.length + a.length + 1, () => 0),
   );
 
   for (let i = 0; 1 + i < tableau.length; i += 1) {
@@ -128,7 +132,7 @@ function buildTableau(c: number[], a: number[][], b: number[]): number[][] {
     tableau[1 + i][c.length + i] = 1;
 
     // Solution row
-    tableau[1 + i][tableau[0].length - 2] = b[i];
+    tableau[1 + i][tableau[0].length - 1] = b[i];
   }
 
   return tableau;
@@ -142,7 +146,7 @@ function crissCrossed(
   const newTableau = tableau.map((row) => row.slice());
 
   for (let i = 0; i < tableau.length; i += 1) {
-    for (let j = 0; j < tableau[0].length - 1; j += 1) {
+    for (let j = 0; j < tableau[0].length; j += 1) {
       if (i != pivotRow) {
         newTableau[i][j] =
           tableau[i][j] - tableau[i][pivotCol] * tableau[pivotRow][j];
@@ -169,19 +173,19 @@ function findPivotCol(tableau: number[][], c: number[]): number {
   return pivotCol;
 }
 
-function findPivotRow(tableau: number[][]): number {
+function findPivotRow(tableau: number[][], ratios: number[]): number {
   let pivotRowValue = Infinity;
   let pivotRow!: number;
 
-  tableau.forEach((row, i) => {
-    if (
-      row[tableau[0].length - 1] < pivotRowValue &&
-      row[tableau[0].length - 1] > 0
-    ) {
-      pivotRowValue = row[tableau[0].length - 1];
-      pivotRow = i;
-    }
-  });
+  ratios
+    .map((ratio, i) => ({ ratio, i }))
+    .filter(({ ratio }) => ratio > 0)
+    .forEach(({ ratio, i }) => {
+      if (ratio < pivotRowValue) {
+        pivotRowValue = ratio;
+        pivotRow = i;
+      }
+    });
 
   return pivotRow;
 }
