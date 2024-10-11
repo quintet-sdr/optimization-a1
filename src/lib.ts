@@ -204,9 +204,10 @@ function checkUnbounded(tableau: number[][]): boolean {
     tableau[0]
       .slice(1)
       .map((_, j) => j)
-      .find(
-        (j) => tableau.filter((row) => row[j] <= 0).length === tableau.length,
-      ) !== undefined
+      .find((j) => {
+        const nonPositive = tableau.filter((row) => row[j] <= 0);
+        return nonPositive.length === tableau.length;
+      }) !== undefined
   );
 }
 
