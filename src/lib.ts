@@ -200,12 +200,10 @@ function findPivotRow(ratios: number[]): number | undefined {
 }
 
 function checkUnbounded(tableau: number[][]): boolean {
-  const bounded = tableau[0]
+  return tableau[0]
     .slice(0, -1)
     .map((_, j) => j)
-    .every((j) => !tableau.every((row) => row[j] <= 0));
-
-  return !bounded;
+    .some((j) => tableau.every((row) => row[j] <= 0));
 }
 
 function assertLengths(c: number[], a: number[][], b: number[]): void | never {
