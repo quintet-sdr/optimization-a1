@@ -53,7 +53,10 @@ export function maximize(
 
     const pivotRow = findPivotRow(tableau);
     const pivotElement = tableau[pivotRow][pivotCol];
-    tableau[pivotRow] = tableau[pivotRow].map((it) => it / pivotElement);
+
+    for (let j = 0; j < tableauCols - 1; j += 1) {
+      tableau[pivotRow][j] /= pivotElement;
+    }
 
     console.log(`Pivot row: ${rowNames[pivotRow]}`);
     console.log(`Pivot column: ${colNames[pivotCol]}`);
