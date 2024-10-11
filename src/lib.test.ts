@@ -20,36 +20,6 @@ test("tut-3", () => {
   assertEq(left, right);
 });
 
-test.only("unbounded-1", () => {
-  const left = maximize(
-    [2, 1],
-    [
-      [1, -1],
-      [2, 0],
-    ],
-    [10, 40],
-    PRECISION,
-  );
-  const right: SimplexResult = { ok: false, error: "unbounded" };
-
-  assertEq(left, right);
-});
-
-test("unbounded-2", () => {
-  const left = maximize(
-    [3, 2],
-    [
-      [1, -1],
-      [-2, 1],
-    ],
-    [2, -1],
-    PRECISION,
-  );
-  const right: SimplexResult = { ok: false, error: "unbounded" };
-
-  assertEq(left, right);
-});
-
 test("lab-3-problem-1", () => {
   const left = maximize(
     [9, 10, 16],
@@ -82,6 +52,36 @@ test("lab-3-problem-3", () => {
     x: [0, 3 / 4, 43 / 8],
     max: 123 / 4,
   };
+
+  assertEq(left, right);
+});
+
+test("unbounded-1", () => {
+  const left = maximize(
+    [2, 1],
+    [
+      [1, -1],
+      [2, 0],
+    ],
+    [10, 40],
+    PRECISION,
+  );
+  const right: SimplexResult = { ok: false, error: "unbounded" };
+
+  assertEq(left, right);
+});
+
+test("unbounded-2", () => {
+  const left = maximize(
+    [3, 2],
+    [
+      [1, -1],
+      [-2, 1],
+    ],
+    [2, -1],
+    PRECISION,
+  );
+  const right: SimplexResult = { ok: false, error: "unbounded" };
 
   assertEq(left, right);
 });
