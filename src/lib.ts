@@ -45,6 +45,7 @@ export function maximize(
   let iteration = 0;
   while (true) {
     if (checkUnbounded(tableau)) {
+      printHeading("Stop: Unbounded");
       return { ok: false, error: "unbounded" };
     }
 

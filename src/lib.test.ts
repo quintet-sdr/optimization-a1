@@ -20,7 +20,7 @@ test("tut-3", () => {
   assertEq(left, right);
 });
 
-test("lec-4-unbounded", () => {
+test.only("unbounded-1", () => {
   const left = maximize(
     [2, 1],
     [
@@ -35,7 +35,7 @@ test("lec-4-unbounded", () => {
   assertEq(left, right);
 });
 
-test("lec-4-unbounded", () => {
+test("unbounded-2", () => {
   const left = maximize(
     [3, 2],
     [
