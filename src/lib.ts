@@ -1,9 +1,15 @@
 import { arrayOf, prettyPrintWith, printHeading } from "./util";
 
-export type SimplexResult = {
-  x: number[];
-  max: number;
-};
+export type SimplexResult =
+  | {
+      ok: true;
+      x: number[];
+      max: number;
+    }
+  | {
+      ok: false;
+      error: "unbounded" | "no-pivot-row" | "no-pivot-col";
+    };
 
 /**
  * @param c - The coefficients of the objective function.
@@ -35,13 +41,11 @@ export function maximize(
 
   console.log("\n" + "Initial table:");
   prettyPrintWith(tableau, rowNames, colNames, eps);
-  
 
   let iteration = 0;
   while (true) {
-
     if (checkUnbounded(tableau)) {
-      throw new Error("Unbounded solution");
+      return { ok: false, error: "unbounded" };
     }
 
     iteration += 1;
@@ -49,13 +53,13 @@ export function maximize(
 
     const pivotCol = findPivotCol(tableau[0]);
     if (pivotCol === undefined) {
-      throw new Error("unable to calculate the pivot column");
+      return { ok: false, error: "no-pivot-col" };
     }
 
     const ratios = tableau.map((row) => row[tableauCols - 1] / row[pivotCol]);
     const pivotRow = findPivotRow(ratios);
     if (pivotRow === undefined) {
-      throw new Error("unable to calculate the pivot row");
+      return { ok: false, error: "no-pivot-row" };
     }
 
     const pivotElement = tableau[pivotRow][pivotCol];
@@ -111,6 +115,7 @@ export function maximize(
     });
 
   const result: SimplexResult = {
+    ok: true,
     x: xIndexes,
     max: answer,
   };
@@ -191,6 +196,17 @@ function findPivotRow(ratios: number[]): number | undefined {
     }, undefined)?.i;
 }
 
+function checkUnbounded(tableau: number[][]): boolean {
+  return (
+    tableau[0]
+      .slice(1)
+      .map((_, j) => j)
+      .find(
+        (j) => tableau.filter((row) => row[j] <= 0).length === tableau.length,
+      ) !== undefined
+  );
+}
+
 function assertLengths(c: number[], a: number[][], b: number[]): void | never {
   if (a.length !== b.length) {
     throw new Error(
@@ -209,23 +225,4 @@ function assertLengths(c: number[], a: number[][], b: number[]): void | never {
       );
     }
   });
-}
-
-
-function checkUnbounded(tableau: number[][]): boolean {
-  let isUnbounded = false;
-  for (let j = 0; j < tableau[0].length - 1; j++) {
-    let flag = 0;
-    for (let i = 0; i < tableau.length; i++) {
-      // console.log(tableau[i][j]);
-      if (tableau[i][j] <= 0) {
-        flag++;
-      }
-    }
-    if (flag == tableau.length) {
-      isUnbounded = true;
-      break;
-    }
-  }
-  return isUnbounded;
 }
