@@ -4,6 +4,22 @@ import { maximize, type SimplexResult } from "./lib";
 
 const PRECISION: number = 3;
 
+test("tut-3", () => {
+  const left = maximize(
+    [10, 20],
+    [
+      [-1, 2],
+      [1, 1],
+      [5, 3],
+    ],
+    [15, 12, 45],
+    PRECISION,
+  );
+  const right: SimplexResult = { x: [3, 9], max: 210 };
+
+  assertEq(left, right);
+});
+
 test("lab-3-problem-1", () => {
   const left = maximize(
     [9, 10, 16],
