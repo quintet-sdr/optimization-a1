@@ -34,12 +34,7 @@ export function maximize(
   const tableauCols = tableau[0].length;
 
   console.log("\n" + "Initial table:");
-  prettyPrintWith(
-    tableau.map((row) => row.slice(0, tableauCols - 1)),
-    rowNames,
-    colNames.slice(0, tableauCols - 1),
-    eps,
-  );
+  prettyPrintWith(tableau, rowNames, colNames, eps);
 
   let iteration = 0;
   while (true) {
