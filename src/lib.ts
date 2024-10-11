@@ -75,7 +75,6 @@ export function maximize(
       console.log(
         "\n" + `${rowNames[pivotRow]} leaves, ${colNames[pivotCol]} enters`,
       );
-
       rowNames[pivotRow] = colNames[pivotCol];
     }
 
