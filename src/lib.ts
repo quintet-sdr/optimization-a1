@@ -2,13 +2,12 @@ import { arrayOf, prettyPrintWith, printHeading } from "./util";
 
 export type SimplexResult =
   | {
-      ok: true;
+      solverState: "solved";
       x: number[];
-      max: number;
+      z: number;
     }
   | {
-      ok: false;
-      error: "unbounded" | "no-pivot-row" | "no-pivot-col";
+      solverState: "unbounded";
     };
 
 /**
@@ -48,22 +47,16 @@ export function maximize(
   while (true) {
     if (checkUnbounded(tableau)) {
       printHeading("~Unbounded~");
-      return { ok: false, error: "unbounded" };
+      return { solverState: "unbounded" };
     }
 
     iteration += 1;
     printHeading(`Iteration ${iteration}`);
 
-    const pivotCol = findPivotCol(tableau[0]);
-    if (pivotCol === undefined) {
-      return { ok: false, error: "no-pivot-col" };
-    }
+    const pivotCol = findPivotCol(tableau[0])!;
 
     const ratios = tableau.map((row) => row[tableauCols - 1] / row[pivotCol]);
-    const pivotRow = findPivotRow(ratios);
-    if (pivotRow === undefined) {
-      return { ok: false, error: "no-pivot-row" };
-    }
+    const pivotRow = findPivotRow(ratios)!;
 
     const pivotElement = tableau[pivotRow][pivotCol];
 
@@ -118,14 +111,14 @@ export function maximize(
     });
 
   const result: SimplexResult = {
-    ok: true,
+    solverState: "solved",
     x: xIndexes,
-    max: answer,
+    z: answer,
   };
 
   console.log();
   console.log(`Decision variables: ${result.x}`);
-  console.log(`Maximum value: ${result.max}`);
+  console.log(`Maximum value: ${result.z}`);
 
   return result;
 }

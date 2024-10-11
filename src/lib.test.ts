@@ -15,7 +15,7 @@ test("tut-3", () => {
     [15, 12, 45],
     PRECISION,
   );
-  const right: SimplexResult = { ok: true, x: [3, 9], max: 210 };
+  const right: SimplexResult = { solverState: "solved", x: [3, 9], z: 210 };
 
   assertEq(left, right);
 });
@@ -31,7 +31,7 @@ test("lab-3-problem-1", () => {
     [360, 192, 180],
     PRECISION,
   );
-  const right: SimplexResult = { ok: true, x: [0, 8, 20], max: 400 };
+  const right: SimplexResult = { solverState: "solved", x: [0, 8, 20], z: 400 };
 
   assertEq(left, right);
 });
@@ -48,9 +48,9 @@ test("lab-3-problem-3", () => {
     PRECISION,
   );
   const right: SimplexResult = {
-    ok: true,
+    solverState: "solved",
     x: [0, 3 / 4, 43 / 8],
-    max: 123 / 4,
+    z: 123 / 4,
   };
 
   assertEq(left, right);
@@ -66,7 +66,7 @@ test("unbounded-1", () => {
     [10, 40],
     PRECISION,
   );
-  const right: SimplexResult = { ok: false, error: "unbounded" };
+  const right: SimplexResult = { solverState: "unbounded" };
 
   assertEq(left, right);
 });
@@ -81,23 +81,20 @@ test("unbounded-2", () => {
     [2, -1],
     PRECISION,
   );
-  const right: SimplexResult = { ok: false, error: "unbounded" };
+  const right: SimplexResult = { solverState: "unbounded" };
 
   assertEq(left, right);
 });
 
 function assertEq(left: SimplexResult, right: SimplexResult): void | never {
-  expect(left.ok).toBe(right.ok);
+  expect(left.solverState).toBe(right.solverState);
 
   // HACK: this allows TypeScript to validate types.
-  if (!left.ok || !right.ok) {
-    if (!left.ok && !right.ok) {
-      return expect(left.error).toBe(right.error);
-    }
+  if (left.solverState === "unbounded" || right.solverState === "unbounded") {
     return;
   }
 
-  expect(left.max).toBeCloseTo(right.max, PRECISION);
+  expect(left.z).toBeCloseTo(right.z, PRECISION);
   left.x.forEach((_, i) =>
     expect(left.x[i]).toBeCloseTo(right.x[i], PRECISION),
   );
