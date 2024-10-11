@@ -200,15 +200,15 @@ function findPivotRow(ratios: number[]): number | undefined {
 }
 
 function checkUnbounded(tableau: number[][]): boolean {
-  return (
-    tableau[0]
-      .slice(1)
-      .map((_, j) => j)
-      .find((j) => {
-        const nonPositive = tableau.filter((row) => row[j] <= 0);
-        return nonPositive.length === tableau.length;
-      }) !== undefined
-  );
+  const colWithAllNonPos = tableau[0]
+    .slice(1)
+    .map((_, j) => j)
+    .find((j) => {
+      const nonPositive = tableau.filter((row) => row[j] <= 0);
+      return nonPositive.length === tableau.length;
+    });
+
+  return colWithAllNonPos !== undefined;
 }
 
 function assertLengths(c: number[], a: number[][], b: number[]): void | never {
