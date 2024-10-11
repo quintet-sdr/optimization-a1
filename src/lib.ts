@@ -71,11 +71,12 @@ export function maximize(
 
     tableau = crissCrossed(tableau, pivotRow, pivotCol);
 
-    if (rowNames[pivotCol] !== colNames[pivotRow]) {
+    if (rowNames[pivotRow] !== colNames[pivotCol]) {
       console.log(
-        "\n" + `${rowNames[pivotCol]} leaves, ${colNames[pivotRow]} enters`,
+        "\n" + `${rowNames[pivotRow]} leaves, ${colNames[pivotCol]} enters`,
       );
-      rowNames[pivotCol] = colNames[pivotRow];
+
+      rowNames[pivotRow] = colNames[pivotCol];
     }
 
     console.log("\n" + "After the iteration:");
