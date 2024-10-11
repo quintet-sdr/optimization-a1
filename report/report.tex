@@ -1,4 +1,5 @@
 \documentclass{article}
+\usepackage{amsmath}
 \usepackage{csquotes}
 \usepackage{enumitem}
 \usepackage{fancyhdr}
@@ -11,30 +12,6 @@
 \geometry{left=3cm, right=3cm, top=2cm, bottom=2cm}
 
 \chead{Report of Programming Task 1 of the course \enquote{Introduction to Optimization} / Fall 2024}
-
-\lstdefinelanguage{js}{
-    keywords={typeof, new, true, false, type, const, let, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
-    ndkeywords={class, export, number, string, never, void, boolean, throw, implements, import, this},
-    ndkeywordstyle=\color{darkgray}\bfseries,
-    identifierstyle=\color{black},
-    sensitive=false,
-    comment=[l]{//},
-    morecomment=[s]{/*}{*/},
-    stringstyle=\color{red}\ttfamily,
-    morestring=[b]',
-    morestring=[b]"
-}
-
-\lstset{
-    language=js,
-    commentstyle=\color{teal},
-    keywordstyle=\color{olive}\bfseries,
-    numberstyle=\tiny,
-    basicstyle=\small\ttfamily,
-    numbers=left,
-    breaklines=true,
-    mathescape=true,
-}
 
 \title{\textbf{Report 1}}
 \author{}
@@ -66,8 +43,39 @@
 \textbf{Linear programming problem:}
 \begin{itemize}[label=-]
     \item Maximization
-    \item \dots
+    \item Approximation accuracy \(\epsilon = 0.001\)
 \end{itemize}
+
+\textbf{Tests:}
+\begin{enumerate}[label={(\arabic*)}]
+    \item \textbf{Input:}
+          \begin{itemize}[label=-]
+              \item Objective function: \(F(x_1, x_2) = 10 x_1 + 20 x_2\)
+              \item Constraints: \(\begin{cases}
+                        -x_1 + 2 x_2 \le 15  \\
+                        x_1 + x_2 \le 12     \\
+                        5 x_1 + 3 x_2 \le 45 \\
+                        x_1, x_2 \ge 0       \\
+                    \end{cases}\)
+          \end{itemize}
+
+          \textbf{Output:}
+          \begin{itemize}[label=-]
+              \item Decision variables: \({\{ 3, 9 \}}\)
+              \item Maximum value: \(210\)
+          \end{itemize}
+
+    \item \textbf{Input:}
+          \begin{itemize}[label=-]
+              \item Objective function: \dots
+              \item Constraints: \dots
+          \end{itemize}
+
+          \textbf{Output:}
+          \begin{itemize}[label=-]
+              \item Unbounded solution
+          \end{itemize}
+\end{enumerate}
 
 \newpage
 
