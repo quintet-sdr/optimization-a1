@@ -3,7 +3,9 @@ import { arrayOf, prettyPrintWith, printHeading } from "./util";
 export type SimplexResult =
   | {
       solverState: "solved";
+      /** The optimal vector of the decision variables. */
       x: number[];
+      /** The maximum value of the objective function. */
       z: number;
     }
   | {
