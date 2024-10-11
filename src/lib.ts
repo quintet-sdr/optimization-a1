@@ -200,13 +200,10 @@ function findPivotRow(ratios: number[]): number | undefined {
 }
 
 function checkUnbounded(tableau: number[][]): boolean {
-  const colWithAllNonPos = tableau[0]
+  let colWithAllNonPos = tableau[0]
     .slice(1)
     .map((_, j) => j)
-    .find((j) => {
-      const nonPositive = tableau.filter((row) => row[j] <= 0);
-      return nonPositive.length === tableau.length;
-    });
+    .find((j) => tableau.every((row) => row[j] <= 0));
 
   return colWithAllNonPos !== undefined;
 }
