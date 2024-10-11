@@ -13,9 +13,9 @@ export type SimplexResult =
     };
 
 /**
- * @param c - A vector of coefficients of the objective function.
- * @param a - A matrix of coefficients of the constraint functions.
- * @param b - A vector of right-hand side values.
+ * @param c - The coefficients of the objective function.
+ * @param a - The coefficients of the constraint functions.
+ * @param b - The right-hand side values.
  * @param eps - Approximation accuracy (digits after the decimal point).
  */
 export function maximize(
