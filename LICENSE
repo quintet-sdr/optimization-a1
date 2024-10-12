@@ -17,10 +17,10 @@ TERMS AND CONDITIONS FOR USE
 
 "Work" shall mean the work of authorship, whether in Source or Object form, made available under the License, as indicated by a copyright notice that is included in or attached to the work (an example is provided in the Appendix below).
 
-"SDR Team" shall mean authors of the code that are Asqar Arslanov (a.arslanov@innopolis.university), Arsen Galiev (a.galiev@innopolis.university), Kirill Efimovich (k.efimovich@innopolis.university) and Ilya-Linh Nguen (i.nguen@innopolis.university)
+"SDR Team" shall mean authors of the work that are Asqar Arslanov (a.arslanov@innopolis.university), Arsen Galiev (a.galiev@innopolis.university), Kirill Efimovich (k.efimovich@innopolis.university) and Ilya-Linh Nguen (i.nguen@innopolis.university)
 
 The current license states that the code and documents provided may not be used by members of educational institutions for the purpose of performing educational material aimed at measuring the knowledge of members of the educational institution. Failure to comply with this requirement reserves the right to penalize the body responsible for measuring the knowledge of members of the institution.
 
-If the code is used by the user for purposes other than those listed above, the additional license included with the software, in this case the Apache 2.0 license, comes into effect.
+If the code is used by the user for purposes other than those listed above, the additional compatible license included with the software, in this case the BSD 3-Clause license, comes into effect.
 
 The authors of the code, or the SDR Team, are not responsible for the use of the work by the user and provide the software “as is” without warranty of any kind, either express or implied, including, but not limited to, warranties of merchantability, fitness for a particular purpose, and non-infringement.
