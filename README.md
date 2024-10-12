@@ -45,7 +45,7 @@ You may find the report under [report/report.pdf](/report/report.pdf).
 
 ## License
 
-The project is available protected under [Student Open License](/LICENSE) against student cheating, and also distributed under [BSD 3-Clause License](/LICENSE-BSD) for other users.
+The project is protected under the [Student Open License](/LICENSE) to prevent cheating from other students, and is also distributed under the [BSD 3-Clause License](/LICENSE-BSD) for other users of the software.
 
 [Bun.js]: https://img.shields.io/badge/Bun-%23000000.svg?style=for-the-badge&logo=bun&logoColor=white
 [Bun-url]: https://bun.sh/
